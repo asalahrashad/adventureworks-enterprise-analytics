@@ -1,0 +1,303 @@
+table DimEmployee
+	lineageTag: 160a4112-f97a-4677-baee-4512aed8d6fe
+
+	column EmployeeKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8eec8d26-7894-4730-a424-6abafbeb899a
+		summarizeBy: count
+		sourceColumn: EmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentEmployeeKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 34a56edb-e065-4c8c-bfe6-ee81711b9646
+		summarizeBy: count
+		sourceColumn: ParentEmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeNationalIDAlternateKey
+		dataType: string
+		lineageTag: 2a8f0240-d013-4eed-99f6-57890c753b16
+		summarizeBy: none
+		sourceColumn: EmployeeNationalIDAlternateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentEmployeeNationalIDAlternateKey
+		dataType: string
+		lineageTag: 68eb46d4-55b9-4b87-81a7-c43197e2ebae
+		summarizeBy: none
+		sourceColumn: ParentEmployeeNationalIDAlternateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTerritoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: bffee34d-915f-4a78-996f-bf21aed81110
+		summarizeBy: count
+		sourceColumn: SalesTerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: c3871ee4-6fe6-4e56-9b06-3af2e1ef66b1
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: 7f7d87e2-89f0-4430-95e2-f8191def7e88
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column MiddleName
+		dataType: string
+		lineageTag: ea1e6351-25e9-4443-9743-301baba7742e
+		summarizeBy: none
+		sourceColumn: MiddleName
+
+		annotation SummarizationSetBy = Automatic
+
+	column NameStyle
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 8157bb95-5c44-43d2-8c46-c17a2a62a158
+		summarizeBy: none
+		sourceColumn: NameStyle
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: e6bda465-e199-4dc1-9261-b79981ca1def
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column HireDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 001b0228-28ce-4fa1-ab4b-5aac1ba41ad2
+		summarizeBy: none
+		sourceColumn: HireDate
+
+		variation Variation
+			isDefault
+			relationship: 7604bd10-4837-4444-a9df-edb56035f778
+			defaultHierarchy: LocalDateTable_8d8a7769-c6ae-4d71-aeb2-c6b0c99cb41b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column BirthDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 8d49f8be-44e6-4cb9-a7d2-2bd9106a6523
+		summarizeBy: none
+		sourceColumn: BirthDate
+
+		variation Variation
+			isDefault
+			relationship: e1a5a397-89c7-4968-b586-db2d9667d512
+			defaultHierarchy: LocalDateTable_e41d7f98-18db-486b-9d23-603a74f31753.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column LoginID
+		dataType: string
+		lineageTag: bfec7410-30cc-4cf5-b128-98355ac7a671
+		summarizeBy: none
+		sourceColumn: LoginID
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmailAddress
+		dataType: string
+		lineageTag: ce3118a4-3e86-4d56-a034-59dfaaad383d
+		summarizeBy: none
+		sourceColumn: EmailAddress
+
+		annotation SummarizationSetBy = Automatic
+
+	column Phone
+		dataType: string
+		lineageTag: 967acd19-2a40-4ede-ab93-3fed46e4ffec
+		summarizeBy: none
+		sourceColumn: Phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column MaritalStatus
+		dataType: string
+		lineageTag: ffe4bd9f-0199-446f-8890-003be20732fc
+		summarizeBy: none
+		sourceColumn: MaritalStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmergencyContactName
+		dataType: string
+		lineageTag: 05cde025-b9ff-46e7-9c3d-2467980e3062
+		summarizeBy: none
+		sourceColumn: EmergencyContactName
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmergencyContactPhone
+		dataType: string
+		lineageTag: c9170dfc-ade4-4941-aa6a-29f74c02280a
+		summarizeBy: none
+		sourceColumn: EmergencyContactPhone
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalariedFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d811ec0c-e494-4f4f-8ac8-7d3c0349048d
+		summarizeBy: none
+		sourceColumn: SalariedFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 7de92884-2c05-4dec-8e2d-9faf64898829
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column PayFrequency
+		dataType: int64
+		formatString: 0
+		lineageTag: 04f66d26-9623-4931-81bb-494253bf7970
+		summarizeBy: sum
+		sourceColumn: PayFrequency
+
+		annotation SummarizationSetBy = Automatic
+
+	column BaseRate
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: fed41a8c-8844-41d8-b392-a444957febf2
+		summarizeBy: sum
+		sourceColumn: BaseRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column VacationHours
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d3e17e8-6a3e-430f-8dfa-9338d72f9b96
+		summarizeBy: sum
+		sourceColumn: VacationHours
+
+		annotation SummarizationSetBy = Automatic
+
+	column SickLeaveHours
+		dataType: int64
+		formatString: 0
+		lineageTag: d62c12d9-8708-4e81-b4e8-45df7ba62964
+		summarizeBy: sum
+		sourceColumn: SickLeaveHours
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrentFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 6596cd94-5065-4c37-8cb3-b08265cc2550
+		summarizeBy: none
+		sourceColumn: CurrentFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesPersonFlag
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 0441b77d-a2f9-421c-9871-1d7102462f1a
+		summarizeBy: none
+		sourceColumn: SalesPersonFlag
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepartmentName
+		dataType: string
+		lineageTag: 558e56b0-77d9-4b14-a21b-e93a74ee95d0
+		summarizeBy: none
+		sourceColumn: DepartmentName
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a10a6863-db95-46a4-85ea-3164532b76f7
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		variation Variation
+			isDefault
+			relationship: 63c27a2f-2abf-4f69-a5c3-f969e724c363
+			defaultHierarchy: LocalDateTable_51e2e940-4e9b-4f3a-8052-1aeaf216e3ca.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EndDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e3b9f73d-8ae3-4278-8709-5bfdb5d913e2
+		summarizeBy: none
+		sourceColumn: EndDate
+
+		variation Variation
+			isDefault
+			relationship: b128eacb-a467-476c-b469-a1ef4249097e
+			defaultHierarchy: LocalDateTable_7876fe46-008f-4333-80dd-903b17f2f120.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Status
+		dataType: string
+		lineageTag: b53d8841-0fe6-4877-be5d-a5648c6573c5
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimEmployee = m
+		mode: import
+		queryGroup: 'Dim Sales Context'
+		source =
+				let
+				    Source = Sql.Database(".", "AdventureWorksDW2022"),
+				    dbo_DimEmployee = Source{[Schema="dbo",Item="DimEmployee"]}[Data],
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimEmployee,{"DimEmployee(EmployeeKey)", "DimEmployee(ParentEmployeeKey)", "DimSalesTerritory", "FactResellerSales", "FactSalesQuota"})
+				in
+				    #"Removed Duplicates key Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

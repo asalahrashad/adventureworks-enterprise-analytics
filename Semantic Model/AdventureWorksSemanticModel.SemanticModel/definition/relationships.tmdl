@@ -1,0 +1,90 @@
+relationship d6927535-6bdb-4e13-a943-ddb632e4a7a5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactSalesQuota.Date
+	toColumn: LocalDateTable_7a5b1021-2c2d-4104-90d5-04d36499dce3.Date
+
+relationship a16e489b-ab82-4423-9198-add543c79fd1
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactResellerSales.OrderDate
+	toColumn: LocalDateTable_cdbef5b8-cc4f-407f-a184-813070da356a.Date
+
+relationship 1d7ec1ae-f6d4-4665-860e-fdf67634f5c0
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactResellerSales.DueDate
+	toColumn: LocalDateTable_2dfb2118-eb8d-4c5b-a4d9-3989714c1fc0.Date
+
+relationship f7b22f14-36c3-41a3-b999-ba19cbabc16e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactResellerSales.ShipDate
+	toColumn: LocalDateTable_b2725002-761f-4a62-9caf-ddfa1bf4ac03.Date
+
+relationship b054eb8b-1ac7-440e-8e2e-fcdbc2242f18
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactInternetSales.OrderDate
+	toColumn: LocalDateTable_77132cea-85e1-4d27-be4a-86d74c42a0f0.Date
+
+relationship 8e370054-9b8f-4927-855c-bd72d58c2d26
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactInternetSales.DueDate
+	toColumn: LocalDateTable_784c90f5-e715-4654-a198-d86b28242a72.Date
+
+relationship 29366f69-e572-4622-82e6-47227ba19086
+	joinOnDateBehavior: datePartOnly
+	fromColumn: FactInternetSales.ShipDate
+	toColumn: LocalDateTable_727d9f21-2536-4ede-b196-8cac6b08a509.Date
+
+relationship d63e74c9-f1bd-416b-a6cf-d830dddfc8ce
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimDate.FullDateAlternateKey
+	toColumn: LocalDateTable_a4054b8a-ec66-45e7-99c7-5fecb482eefc.Date
+
+relationship 6d6c0f9d-ec24-49e9-83e0-dc07cebaaffe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimProduct.StartDate
+	toColumn: LocalDateTable_fb99d0d0-86c3-4930-800b-7494e58f0f6d.Date
+
+relationship a8d0b109-b88d-4570-9e3b-911ef94ccd51
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimProduct.EndDate
+	toColumn: LocalDateTable_985b9f4e-3a81-469d-b588-29d26e859605.Date
+
+relationship 73df0c13-87ab-4e08-8c8e-c55c28b4c24d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCustomer.BirthDate
+	toColumn: LocalDateTable_e38c1fc4-90b5-4f84-bb3d-2a665fec5de7.Date
+
+relationship 29ce8d2a-c22b-49b4-9a21-d8cf184cfe65
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimCustomer.DateFirstPurchase
+	toColumn: LocalDateTable_672c3860-6c3a-4f74-8932-5609d92a0e74.Date
+
+relationship fc3a6443-0263-42a7-bc3b-cfd7de0806ae
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimPromotion.StartDate
+	toColumn: LocalDateTable_62840b8e-30f8-4f43-855d-785b06df304e.Date
+
+relationship 5c06e833-21d9-4ac3-88cb-61cd3f95b503
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimPromotion.EndDate
+	toColumn: LocalDateTable_c6bbe650-dc15-4fde-ad3a-265b6039f4b3.Date
+
+relationship 7604bd10-4837-4444-a9df-edb56035f778
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimEmployee.HireDate
+	toColumn: LocalDateTable_8d8a7769-c6ae-4d71-aeb2-c6b0c99cb41b.Date
+
+relationship e1a5a397-89c7-4968-b586-db2d9667d512
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimEmployee.BirthDate
+	toColumn: LocalDateTable_e41d7f98-18db-486b-9d23-603a74f31753.Date
+
+relationship 63c27a2f-2abf-4f69-a5c3-f969e724c363
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimEmployee.StartDate
+	toColumn: LocalDateTable_51e2e940-4e9b-4f3a-8052-1aeaf216e3ca.Date
+
+relationship b128eacb-a467-476c-b469-a1ef4249097e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DimEmployee.EndDate
+	toColumn: LocalDateTable_7876fe46-008f-4333-80dd-903b17f2f120.Date
+

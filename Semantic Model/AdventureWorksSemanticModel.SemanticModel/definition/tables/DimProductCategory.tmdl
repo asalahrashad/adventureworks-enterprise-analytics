@@ -1,0 +1,60 @@
+table DimProductCategory
+	lineageTag: 5798aeb8-94d7-4f8a-8a85-d5bc02b67dc2
+
+	column ProductCategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 177b9470-49e1-4e5e-8da8-c5ea3a450069
+		summarizeBy: count
+		sourceColumn: ProductCategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategoryAlternateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: c54d317f-1a56-4ba3-ba3b-177e927c87a7
+		summarizeBy: count
+		sourceColumn: ProductCategoryAlternateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column EnglishProductCategoryName
+		dataType: string
+		lineageTag: d5b018a3-be14-4ad5-b176-5c87096cb4c3
+		summarizeBy: none
+		sourceColumn: EnglishProductCategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column SpanishProductCategoryName
+		dataType: string
+		lineageTag: edc5e0db-0b4e-4d94-ac4b-6d6783b16a24
+		summarizeBy: none
+		sourceColumn: SpanishProductCategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column FrenchProductCategoryName
+		dataType: string
+		lineageTag: bc807f4c-4ae6-4224-9995-2e664996b5d0
+		summarizeBy: none
+		sourceColumn: FrenchProductCategoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimProductCategory = m
+		mode: import
+		queryGroup: 'Dim product'
+		source =
+				let
+				    Source = Sql.Database(".", "AdventureWorksDW2022"),
+				    dbo_DimProductCategory = Source{[Schema="dbo",Item="DimProductCategory"]}[Data],
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimProductCategory,{"DimProductSubcategory"})
+				in
+				    #"Removed Duplicates key Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
