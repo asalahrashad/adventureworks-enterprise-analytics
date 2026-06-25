@@ -27,22 +27,6 @@ table DimPromotion
 
 		annotation SummarizationSetBy = Automatic
 
-	column SpanishPromotionName
-		dataType: string
-		lineageTag: ecc76bbb-b4c5-448b-bc8b-a3dbfea16fee
-		summarizeBy: none
-		sourceColumn: SpanishPromotionName
-
-		annotation SummarizationSetBy = Automatic
-
-	column FrenchPromotionName
-		dataType: string
-		lineageTag: 7f63179e-e13f-4f4b-acdc-15eb17ad49f6
-		summarizeBy: none
-		sourceColumn: FrenchPromotionName
-
-		annotation SummarizationSetBy = Automatic
-
 	column DiscountPct
 		dataType: double
 		lineageTag: 96a01f7d-a4b3-45b0-8e00-0b7c0a4fb8af
@@ -61,43 +45,11 @@ table DimPromotion
 
 		annotation SummarizationSetBy = Automatic
 
-	column SpanishPromotionType
-		dataType: string
-		lineageTag: f96ec470-62db-4aac-a1f4-b00e214ed295
-		summarizeBy: none
-		sourceColumn: SpanishPromotionType
-
-		annotation SummarizationSetBy = Automatic
-
-	column FrenchPromotionType
-		dataType: string
-		lineageTag: 463ad6da-05de-409a-9148-841dd28dbd94
-		summarizeBy: none
-		sourceColumn: FrenchPromotionType
-
-		annotation SummarizationSetBy = Automatic
-
 	column EnglishPromotionCategory
 		dataType: string
 		lineageTag: cabb84e8-1c98-420c-93d8-5eb54222e312
 		summarizeBy: none
 		sourceColumn: EnglishPromotionCategory
-
-		annotation SummarizationSetBy = Automatic
-
-	column SpanishPromotionCategory
-		dataType: string
-		lineageTag: 445b5b3d-6f96-4b0c-9e6a-12cc8f74736c
-		summarizeBy: none
-		sourceColumn: SpanishPromotionCategory
-
-		annotation SummarizationSetBy = Automatic
-
-	column FrenchPromotionCategory
-		dataType: string
-		lineageTag: c429540b-39e0-48a6-a370-5d7539076bb9
-		summarizeBy: none
-		sourceColumn: FrenchPromotionCategory
 
 		annotation SummarizationSetBy = Automatic
 
@@ -154,9 +106,10 @@ table DimPromotion
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimPromotion = Source{[Schema="dbo",Item="DimPromotion"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimPromotion,{"FactInternetSales", "FactResellerSales"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimPromotion,{"FactInternetSales", "FactResellerSales"}),
+				    #"Removed Unnecessary Columns" = Table.SelectColumns(#"Removed Duplicates key Columns",{"PromotionKey", "PromotionAlternateKey", "EnglishPromotionName", "DiscountPct", "EnglishPromotionType", "EnglishPromotionCategory", "StartDate", "EndDate", "MinQty", "MaxQty"})
 				in
-				    #"Removed Duplicates key Columns"
+				    #"Removed Unnecessary Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

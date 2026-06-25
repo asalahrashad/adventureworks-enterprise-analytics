@@ -50,7 +50,7 @@ table DimSalesTerritory
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimSalesTerritory = Source{[Schema="dbo",Item="DimSalesTerritory"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimSalesTerritory,{"DimEmployee", "DimGeography", "FactInternetSales", "FactResellerSales"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimSalesTerritory,{"DimEmployee", "DimGeography", "FactInternetSales", "FactResellerSales", "SalesTerritoryImage"})
 				in
 				    #"Removed Duplicates key Columns"
 

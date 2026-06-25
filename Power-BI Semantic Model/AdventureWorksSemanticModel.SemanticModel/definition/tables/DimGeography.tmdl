@@ -83,14 +83,6 @@ table DimGeography
 
 		annotation SummarizationSetBy = Automatic
 
-	column IpAddressLocator
-		dataType: string
-		lineageTag: 3b5e6d76-8131-4f1d-930b-c916ed89c5a3
-		summarizeBy: none
-		sourceColumn: IpAddressLocator
-
-		annotation SummarizationSetBy = Automatic
-
 	partition DimGeography = m
 		mode: import
 		queryGroup: 'Dim Geography'
@@ -98,7 +90,7 @@ table DimGeography
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimGeography = Source{[Schema="dbo",Item="DimGeography"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimGeography,{"DimCustomer", "DimReseller", "DimSalesTerritory"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimGeography,{"DimCustomer", "DimReseller", "DimSalesTerritory", "IpAddressLocator"})
 				in
 				    #"Removed Duplicates key Columns"
 

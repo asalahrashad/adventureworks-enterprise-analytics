@@ -1,15 +1,6 @@
 table FactSalesQuota
 	lineageTag: 4c374958-43ae-46fd-b3ab-62cc2f285aba
 
-	column SalesQuotaKey
-		dataType: int64
-		formatString: 0
-		lineageTag: 64e10145-e1a9-406c-9bca-17f91fe8727c
-		summarizeBy: count
-		sourceColumn: SalesQuotaKey
-
-		annotation SummarizationSetBy = Automatic
-
 	column EmployeeKey
 		dataType: int64
 		formatString: 0
@@ -28,24 +19,6 @@ table FactSalesQuota
 
 		annotation SummarizationSetBy = Automatic
 
-	column CalendarYear
-		dataType: int64
-		formatString: 0
-		lineageTag: fa3a8258-717a-4dea-af1c-3fa52893ae92
-		summarizeBy: sum
-		sourceColumn: CalendarYear
-
-		annotation SummarizationSetBy = Automatic
-
-	column CalendarQuarter
-		dataType: int64
-		formatString: 0
-		lineageTag: d2de7b45-98c1-470f-904a-1929b1e3fa38
-		summarizeBy: sum
-		sourceColumn: CalendarQuarter
-
-		annotation SummarizationSetBy = Automatic
-
 	column SalesAmountQuota
 		dataType: decimal
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
@@ -57,20 +30,6 @@ table FactSalesQuota
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	column Date
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: 1aec6b4b-47dc-479b-b9a9-55c1b4b17af8
-		summarizeBy: none
-		sourceColumn: Date
-
-		variation Variation
-			isDefault
-			relationship: d6927535-6bdb-4e13-a943-ddb632e4a7a5
-			defaultHierarchy: LocalDateTable_7a5b1021-2c2d-4104-90d5-04d36499dce3.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
 	partition FactSalesQuota = m
 		mode: import
 		queryGroup: 'Fact Tables'
@@ -78,7 +37,7 @@ table FactSalesQuota
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_FactSalesQuota = Source{[Schema="dbo",Item="FactSalesQuota"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_FactSalesQuota,{"DimDate", "DimEmployee"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_FactSalesQuota,{"DimDate", "DimEmployee", "Date", "SalesQuotaKey", "CalendarYear", "CalendarQuarter"})
 				in
 				    #"Removed Duplicates key Columns"
 

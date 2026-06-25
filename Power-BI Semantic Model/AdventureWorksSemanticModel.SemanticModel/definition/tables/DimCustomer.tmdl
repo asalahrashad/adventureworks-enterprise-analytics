@@ -1,15 +1,6 @@
 table DimCustomer
 	lineageTag: 0f7afd25-ec57-4d5a-90ab-907e07a1b786
 
-	column CustomerKey
-		dataType: int64
-		formatString: 0
-		lineageTag: 2cc2cf2e-0542-4896-ae49-6565301ec9b8
-		summarizeBy: count
-		sourceColumn: CustomerKey
-
-		annotation SummarizationSetBy = Automatic
-
 	column GeographyKey
 		dataType: int64
 		formatString: 0
@@ -24,47 +15,6 @@ table DimCustomer
 		lineageTag: ccbb9960-71f0-4d31-99c8-e84f6d96d646
 		summarizeBy: none
 		sourceColumn: CustomerAlternateKey
-
-		annotation SummarizationSetBy = Automatic
-
-	column Title
-		dataType: string
-		lineageTag: f0ba3e16-331a-4e51-9f52-9598e2d602e8
-		summarizeBy: none
-		sourceColumn: Title
-
-		annotation SummarizationSetBy = Automatic
-
-	column FirstName
-		dataType: string
-		lineageTag: 901baae3-bdfa-4021-b253-c847a9c149b0
-		summarizeBy: none
-		sourceColumn: FirstName
-
-		annotation SummarizationSetBy = Automatic
-
-	column MiddleName
-		dataType: string
-		lineageTag: e47cd159-b38a-4e1d-9665-1e07d694bc93
-		summarizeBy: none
-		sourceColumn: MiddleName
-
-		annotation SummarizationSetBy = Automatic
-
-	column LastName
-		dataType: string
-		lineageTag: bf6f217f-0640-4e5b-beab-46cef99303d3
-		summarizeBy: none
-		sourceColumn: LastName
-
-		annotation SummarizationSetBy = Automatic
-
-	column NameStyle
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 0a774a85-f11b-41ad-bc57-2ac553e17cbf
-		summarizeBy: none
-		sourceColumn: NameStyle
 
 		annotation SummarizationSetBy = Automatic
 
@@ -89,14 +39,6 @@ table DimCustomer
 		lineageTag: ad717d0d-30f5-4a22-b70d-bcbe4f93c47f
 		summarizeBy: none
 		sourceColumn: MaritalStatus
-
-		annotation SummarizationSetBy = Automatic
-
-	column Suffix
-		dataType: string
-		lineageTag: 61ea1a6b-37b5-418e-a1dc-3d9e5fa194d5
-		summarizeBy: none
-		sourceColumn: Suffix
 
 		annotation SummarizationSetBy = Automatic
 
@@ -153,43 +95,11 @@ table DimCustomer
 
 		annotation SummarizationSetBy = Automatic
 
-	column SpanishEducation
-		dataType: string
-		lineageTag: ccea0925-6ae2-4b5c-9894-a090d8483ef1
-		summarizeBy: none
-		sourceColumn: SpanishEducation
-
-		annotation SummarizationSetBy = Automatic
-
-	column FrenchEducation
-		dataType: string
-		lineageTag: 99958653-3413-4a68-91ce-de39c64f6ef9
-		summarizeBy: none
-		sourceColumn: FrenchEducation
-
-		annotation SummarizationSetBy = Automatic
-
 	column EnglishOccupation
 		dataType: string
 		lineageTag: 1392f0a0-761a-4704-b16c-eb49df722b49
 		summarizeBy: none
 		sourceColumn: EnglishOccupation
-
-		annotation SummarizationSetBy = Automatic
-
-	column SpanishOccupation
-		dataType: string
-		lineageTag: 5ffd84e0-d2c8-4a2f-bde8-bf20cf5fc3df
-		summarizeBy: none
-		sourceColumn: SpanishOccupation
-
-		annotation SummarizationSetBy = Automatic
-
-	column FrenchOccupation
-		dataType: string
-		lineageTag: a0ae5262-3cff-4417-832d-c3e7c84a0b31
-		summarizeBy: none
-		sourceColumn: FrenchOccupation
 
 		annotation SummarizationSetBy = Automatic
 
@@ -258,16 +168,30 @@ table DimCustomer
 
 		annotation SummarizationSetBy = Automatic
 
+	column 'Full Name'
+		dataType: string
+		lineageTag: bb90969a-961e-4c77-b3d3-428d49f55587
+		summarizeBy: none
+		sourceColumn: Full Name
+
+		annotation SummarizationSetBy = Automatic
+
 	partition DimCustomer = m
 		mode: import
 		queryGroup: 'Dim Customers'
-		source =
+		source = ```
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimCustomer = Source{[Schema="dbo",Item="DimCustomer"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimCustomer,{"DimGeography", "FactInternetSales", "FactSurveyResponse"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimCustomer,{"DimGeography", "FactInternetSales", "FactSurveyResponse"}),
+				    // concate first, middle, last names
+				    #"Merge The three columns names parts" = Table.CombineColumns(Table.TransformColumnTypes(#"Removed Duplicates key Columns", {{"CustomerKey", type text}}, "en-US"),{"CustomerKey", "FirstName", "MiddleName", "LastName"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Full Name"),
+				    // There was a customer key befor the name 
+				    #"Fix the name column" = Table.TransformColumns(#"Merge The three columns names parts", {{"Full Name", each Text.AfterDelimiter(_, " "), type text}}),
+				    #"Remove Unneccesary Columns" = Table.SelectColumns(#"Fix the name column",{"GeographyKey", "CustomerAlternateKey", "Full Name", "BirthDate", "MaritalStatus", "Gender", "EmailAddress", "YearlyIncome", "TotalChildren", "NumberChildrenAtHome", "EnglishEducation", "EnglishOccupation", "HouseOwnerFlag", "NumberCarsOwned", "AddressLine1", "AddressLine2", "Phone", "DateFirstPurchase", "CommuteDistance"})
 				in
-				    #"Removed Duplicates key Columns"
+				    #"Remove Unneccesary Columns"
+				```
 
 	annotation PBI_NavigationStepName = Navigation
 

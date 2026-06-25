@@ -230,48 +230,6 @@ table FactResellerSales
 
 		annotation SummarizationSetBy = Automatic
 
-	column OrderDate
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: 779f6cb4-7345-4035-bca2-cf2394d203c3
-		summarizeBy: none
-		sourceColumn: OrderDate
-
-		variation Variation
-			isDefault
-			relationship: a16e489b-ab82-4423-9198-add543c79fd1
-			defaultHierarchy: LocalDateTable_cdbef5b8-cc4f-407f-a184-813070da356a.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-	column DueDate
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: babdb679-5875-4ae9-b0c1-a94d86a15e9f
-		summarizeBy: none
-		sourceColumn: DueDate
-
-		variation Variation
-			isDefault
-			relationship: 1d7ec1ae-f6d4-4665-860e-fdf67634f5c0
-			defaultHierarchy: LocalDateTable_2dfb2118-eb8d-4c5b-a4d9-3989714c1fc0.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-	column ShipDate
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: 40dc3053-1c67-4260-8504-7dee7dd11a75
-		summarizeBy: none
-		sourceColumn: ShipDate
-
-		variation Variation
-			isDefault
-			relationship: f7b22f14-36c3-41a3-b999-ba19cbabc16e
-			defaultHierarchy: LocalDateTable_b2725002-761f-4a62-9caf-ddfa1bf4ac03.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
 	partition FactResellerSales = m
 		mode: import
 		queryGroup: 'Fact Tables'
@@ -279,7 +237,7 @@ table FactResellerSales
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_FactResellerSales = Source{[Schema="dbo",Item="FactResellerSales"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.SelectColumns(dbo_FactResellerSales,{"ProductKey", "OrderDateKey", "DueDateKey", "ShipDateKey", "ResellerKey", "EmployeeKey", "PromotionKey", "CurrencyKey", "SalesTerritoryKey", "SalesOrderNumber", "SalesOrderLineNumber", "RevisionNumber", "OrderQuantity", "UnitPrice", "ExtendedAmount", "UnitPriceDiscountPct", "DiscountAmount", "ProductStandardCost", "TotalProductCost", "SalesAmount", "TaxAmt", "Freight", "CarrierTrackingNumber", "CustomerPONumber", "OrderDate", "DueDate", "ShipDate"})
+				    #"Removed Duplicates key Columns" = Table.SelectColumns(dbo_FactResellerSales,{"ProductKey", "OrderDateKey", "DueDateKey", "ShipDateKey", "ResellerKey", "EmployeeKey", "PromotionKey", "CurrencyKey", "SalesTerritoryKey", "SalesOrderNumber", "SalesOrderLineNumber", "RevisionNumber", "OrderQuantity", "UnitPrice", "ExtendedAmount", "UnitPriceDiscountPct", "DiscountAmount", "ProductStandardCost", "TotalProductCost", "SalesAmount", "TaxAmt", "Freight", "CarrierTrackingNumber", "CustomerPONumber"})
 				in
 				    #"Removed Duplicates key Columns"
 

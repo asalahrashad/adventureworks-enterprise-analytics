@@ -27,32 +27,19 @@ table DimProductCategory
 
 		annotation SummarizationSetBy = Automatic
 
-	column SpanishProductCategoryName
-		dataType: string
-		lineageTag: edc5e0db-0b4e-4d94-ac4b-6d6783b16a24
-		summarizeBy: none
-		sourceColumn: SpanishProductCategoryName
-
-		annotation SummarizationSetBy = Automatic
-
-	column FrenchProductCategoryName
-		dataType: string
-		lineageTag: bc807f4c-4ae6-4224-9995-2e664996b5d0
-		summarizeBy: none
-		sourceColumn: FrenchProductCategoryName
-
-		annotation SummarizationSetBy = Automatic
-
 	partition DimProductCategory = m
 		mode: import
 		queryGroup: 'Dim product'
-		source =
+		source = ```
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimProductCategory = Source{[Schema="dbo",Item="DimProductCategory"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimProductCategory,{"DimProductSubcategory"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimProductCategory,{"DimProductSubcategory"}),
+				    // Columns Like Descriptions or names in other languages 
+				    #"Removed Unnecessary Columns" = Table.SelectColumns(#"Removed Duplicates key Columns",{"ProductCategoryKey", "ProductCategoryAlternateKey", "EnglishProductCategoryName"})
 				in
-				    #"Removed Duplicates key Columns"
+				    #"Removed Unnecessary Columns"
+				```
 
 	annotation PBI_NavigationStepName = Navigation
 

@@ -30,28 +30,28 @@ queryGroup 'Dim Sales Context'
 
 	annotation PBI_QueryGroupOrder = 5
 
+/// Query group for diagnostics
+queryGroup Diagnostics
+
+	annotation PBI_QueryGroupOrder = 8
+
+queryGroup Currency
+
+	annotation PBI_QueryGroupOrder = 7
+
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["FactInternetSales","FactResellerSales","FactSalesQuota","DimDate","DimProduct","DimProductCategory","DimProductSubcategory","DimCustomer","DimReseller","DimGeography","DimSalesTerritory","DimEmployee","DimPromotion","DimCurrency"]
+annotation PBI_QueryOrder = ["FactInternetSales","FactResellerSales","FactSalesQuota","DimDate","DimProduct","DimProductCategory","DimProductSubcategory","DimCustomer","DimReseller","DimGeography","DimSalesTerritory","DimEmployee","DimPromotion","FactCurrencyRate","DimCurrency","FactSalesQuota_Removed Duplicates key Columns_Counters_2026-06-25_17:29","FactSalesQuota_Removed Duplicates key Columns_Detailed_2026-06-25_17:29","FactSalesQuota_Removed Duplicates key Columns_Aggregated_2026-06-25_17:29"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
 ref table FactSalesQuota
 ref table DateTableTemplate_ed20aa21-b64e-4ba5-9bf6-6156cb5f9da6
-ref table LocalDateTable_7a5b1021-2c2d-4104-90d5-04d36499dce3
 ref table FactResellerSales
-ref table LocalDateTable_cdbef5b8-cc4f-407f-a184-813070da356a
-ref table LocalDateTable_2dfb2118-eb8d-4c5b-a4d9-3989714c1fc0
-ref table LocalDateTable_b2725002-761f-4a62-9caf-ddfa1bf4ac03
 ref table FactInternetSales
-ref table LocalDateTable_77132cea-85e1-4d27-be4a-86d74c42a0f0
-ref table LocalDateTable_784c90f5-e715-4654-a198-d86b28242a72
-ref table LocalDateTable_727d9f21-2536-4ede-b196-8cac6b08a509
 ref table DimDate
 ref table LocalDateTable_a4054b8a-ec66-45e7-99c7-5fecb482eefc
 ref table DimProduct
-ref table LocalDateTable_fb99d0d0-86c3-4930-800b-7494e58f0f6d
-ref table LocalDateTable_985b9f4e-3a81-469d-b588-29d26e859605
 ref table DimProductCategory
 ref table DimProductSubcategory
 ref table DimCustomer
@@ -67,8 +67,8 @@ ref table DimCurrency
 ref table DimEmployee
 ref table LocalDateTable_8d8a7769-c6ae-4d71-aeb2-c6b0c99cb41b
 ref table LocalDateTable_e41d7f98-18db-486b-9d23-603a74f31753
-ref table LocalDateTable_51e2e940-4e9b-4f3a-8052-1aeaf216e3ca
-ref table LocalDateTable_7876fe46-008f-4333-80dd-903b17f2f120
+ref table FactCurrencyRate
+ref table LocalDateTable_2fffe066-56ba-42a2-9fde-6f774c7af878
 
 ref cultureInfo en-US
 

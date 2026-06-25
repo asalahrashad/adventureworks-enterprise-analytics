@@ -19,61 +19,12 @@ table DimEmployee
 
 		annotation SummarizationSetBy = Automatic
 
-	column EmployeeNationalIDAlternateKey
-		dataType: string
-		lineageTag: 2a8f0240-d013-4eed-99f6-57890c753b16
-		summarizeBy: none
-		sourceColumn: EmployeeNationalIDAlternateKey
-
-		annotation SummarizationSetBy = Automatic
-
-	column ParentEmployeeNationalIDAlternateKey
-		dataType: string
-		lineageTag: 68eb46d4-55b9-4b87-81a7-c43197e2ebae
-		summarizeBy: none
-		sourceColumn: ParentEmployeeNationalIDAlternateKey
-
-		annotation SummarizationSetBy = Automatic
-
 	column SalesTerritoryKey
 		dataType: int64
 		formatString: 0
 		lineageTag: bffee34d-915f-4a78-996f-bf21aed81110
 		summarizeBy: count
 		sourceColumn: SalesTerritoryKey
-
-		annotation SummarizationSetBy = Automatic
-
-	column FirstName
-		dataType: string
-		lineageTag: c3871ee4-6fe6-4e56-9b06-3af2e1ef66b1
-		summarizeBy: none
-		sourceColumn: FirstName
-
-		annotation SummarizationSetBy = Automatic
-
-	column LastName
-		dataType: string
-		lineageTag: 7f7d87e2-89f0-4430-95e2-f8191def7e88
-		summarizeBy: none
-		sourceColumn: LastName
-
-		annotation SummarizationSetBy = Automatic
-
-	column MiddleName
-		dataType: string
-		lineageTag: ea1e6351-25e9-4443-9743-301baba7742e
-		summarizeBy: none
-		sourceColumn: MiddleName
-
-		annotation SummarizationSetBy = Automatic
-
-	column NameStyle
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 8157bb95-5c44-43d2-8c46-c17a2a62a158
-		summarizeBy: none
-		sourceColumn: NameStyle
 
 		annotation SummarizationSetBy = Automatic
 
@@ -117,14 +68,6 @@ table DimEmployee
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	column LoginID
-		dataType: string
-		lineageTag: bfec7410-30cc-4cf5-b128-98355ac7a671
-		summarizeBy: none
-		sourceColumn: LoginID
-
-		annotation SummarizationSetBy = Automatic
-
 	column EmailAddress
 		dataType: string
 		lineageTag: ce3118a4-3e86-4d56-a034-59dfaaad383d
@@ -146,31 +89,6 @@ table DimEmployee
 		lineageTag: ffe4bd9f-0199-446f-8890-003be20732fc
 		summarizeBy: none
 		sourceColumn: MaritalStatus
-
-		annotation SummarizationSetBy = Automatic
-
-	column EmergencyContactName
-		dataType: string
-		lineageTag: 05cde025-b9ff-46e7-9c3d-2467980e3062
-		summarizeBy: none
-		sourceColumn: EmergencyContactName
-
-		annotation SummarizationSetBy = Automatic
-
-	column EmergencyContactPhone
-		dataType: string
-		lineageTag: c9170dfc-ade4-4941-aa6a-29f74c02280a
-		summarizeBy: none
-		sourceColumn: EmergencyContactPhone
-
-		annotation SummarizationSetBy = Automatic
-
-	column SalariedFlag
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: d811ec0c-e494-4f4f-8ac8-7d3c0349048d
-		summarizeBy: none
-		sourceColumn: SalariedFlag
 
 		annotation SummarizationSetBy = Automatic
 
@@ -220,15 +138,6 @@ table DimEmployee
 
 		annotation SummarizationSetBy = Automatic
 
-	column CurrentFlag
-		dataType: boolean
-		formatString: """TRUE"";""TRUE"";""FALSE"""
-		lineageTag: 6596cd94-5065-4c37-8cb3-b08265cc2550
-		summarizeBy: none
-		sourceColumn: CurrentFlag
-
-		annotation SummarizationSetBy = Automatic
-
 	column SalesPersonFlag
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
@@ -246,43 +155,11 @@ table DimEmployee
 
 		annotation SummarizationSetBy = Automatic
 
-	column StartDate
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: a10a6863-db95-46a4-85ea-3164532b76f7
-		summarizeBy: none
-		sourceColumn: StartDate
-
-		variation Variation
-			isDefault
-			relationship: 63c27a2f-2abf-4f69-a5c3-f969e724c363
-			defaultHierarchy: LocalDateTable_51e2e940-4e9b-4f3a-8052-1aeaf216e3ca.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column EndDate
-		dataType: dateTime
-		formatString: Long Date
-		lineageTag: e3b9f73d-8ae3-4278-8709-5bfdb5d913e2
-		summarizeBy: none
-		sourceColumn: EndDate
-
-		variation Variation
-			isDefault
-			relationship: b128eacb-a467-476c-b469-a1ef4249097e
-			defaultHierarchy: LocalDateTable_7876fe46-008f-4333-80dd-903b17f2f120.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
-
-	column Status
+	column 'Full Name'
 		dataType: string
-		lineageTag: b53d8841-0fe6-4877-be5d-a5648c6573c5
+		lineageTag: 3eb9841f-2a1d-4108-b3b4-13a20d9c0628
 		summarizeBy: none
-		sourceColumn: Status
+		sourceColumn: Full Name
 
 		annotation SummarizationSetBy = Automatic
 
@@ -293,9 +170,11 @@ table DimEmployee
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimEmployee = Source{[Schema="dbo",Item="DimEmployee"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimEmployee,{"DimEmployee(EmployeeKey)", "DimEmployee(ParentEmployeeKey)", "DimSalesTerritory", "FactResellerSales", "FactSalesQuota"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimEmployee,{"DimEmployee(EmployeeKey)", "DimEmployee(ParentEmployeeKey)", "DimSalesTerritory", "FactResellerSales", "FactSalesQuota"}),
+				    #"Removed Unnecessary Columns" = Table.SelectColumns(#"Removed Duplicates key Columns",{"EmployeeKey", "ParentEmployeeKey", "SalesTerritoryKey", "FirstName", "LastName", "MiddleName", "Title", "HireDate", "BirthDate", "EmailAddress", "Phone", "MaritalStatus", "Gender", "PayFrequency", "BaseRate", "VacationHours", "SickLeaveHours", "SalesPersonFlag", "DepartmentName"}),
+				    #"Merge names Parts Columns" = Table.CombineColumns(#"Removed Unnecessary Columns",{"FirstName", "MiddleName", "LastName"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Full Name")
 				in
-				    #"Removed Duplicates key Columns"
+				    #"Merge names Parts Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

@@ -92,10 +92,13 @@ table FactInternetSales
 
 	column RevisionNumber
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 77d257d9-530b-4c82-8018-7e5894e08dcb
 		summarizeBy: sum
 		sourceColumn: RevisionNumber
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -207,9 +210,12 @@ table FactInternetSales
 
 	column CarrierTrackingNumber
 		dataType: string
+		isHidden
 		lineageTag: caec2ac0-8445-48f1-82e4-4721ce121e2f
 		summarizeBy: none
 		sourceColumn: CarrierTrackingNumber
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -221,48 +227,6 @@ table FactInternetSales
 
 		annotation SummarizationSetBy = Automatic
 
-	column OrderDate
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: bfc5a9cb-5d93-4ec9-8c0f-e6dfea08d560
-		summarizeBy: none
-		sourceColumn: OrderDate
-
-		variation Variation
-			isDefault
-			relationship: b054eb8b-1ac7-440e-8e2e-fcdbc2242f18
-			defaultHierarchy: LocalDateTable_77132cea-85e1-4d27-be4a-86d74c42a0f0.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-	column DueDate
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: 5b514ad0-f68e-4fba-809b-1201a5c3af80
-		summarizeBy: none
-		sourceColumn: DueDate
-
-		variation Variation
-			isDefault
-			relationship: 8e370054-9b8f-4927-855c-bd72d58c2d26
-			defaultHierarchy: LocalDateTable_784c90f5-e715-4654-a198-d86b28242a72.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
-	column ShipDate
-		dataType: dateTime
-		formatString: General Date
-		lineageTag: 583b22a3-d254-43b1-a6d4-94d391d48790
-		summarizeBy: none
-		sourceColumn: ShipDate
-
-		variation Variation
-			isDefault
-			relationship: 29366f69-e572-4622-82e6-47227ba19086
-			defaultHierarchy: LocalDateTable_727d9f21-2536-4ede-b196-8cac6b08a509.'Date Hierarchy'
-
-		annotation SummarizationSetBy = Automatic
-
 	partition FactInternetSales = m
 		mode: import
 		queryGroup: 'Fact Tables'
@@ -270,7 +234,7 @@ table FactInternetSales
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_FactInternetSales = Source{[Schema="dbo",Item="FactInternetSales"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.SelectColumns(dbo_FactInternetSales,{"ProductKey", "OrderDateKey", "DueDateKey", "ShipDateKey", "CustomerKey", "PromotionKey", "CurrencyKey", "SalesTerritoryKey", "SalesOrderNumber", "SalesOrderLineNumber", "RevisionNumber", "OrderQuantity", "UnitPrice", "ExtendedAmount", "UnitPriceDiscountPct", "DiscountAmount", "ProductStandardCost", "TotalProductCost", "SalesAmount", "TaxAmt", "Freight", "CarrierTrackingNumber", "CustomerPONumber", "OrderDate", "DueDate", "ShipDate"})
+				    #"Removed Duplicates key Columns" = Table.SelectColumns(dbo_FactInternetSales,{"ProductKey", "OrderDateKey", "DueDateKey", "ShipDateKey", "CustomerKey", "PromotionKey", "CurrencyKey", "SalesTerritoryKey", "SalesOrderNumber", "SalesOrderLineNumber", "RevisionNumber", "OrderQuantity", "UnitPrice", "ExtendedAmount", "UnitPriceDiscountPct", "DiscountAmount", "ProductStandardCost", "TotalProductCost", "SalesAmount", "TaxAmt", "Freight", "CarrierTrackingNumber", "CustomerPONumber"})
 				in
 				    #"Removed Duplicates key Columns"
 
