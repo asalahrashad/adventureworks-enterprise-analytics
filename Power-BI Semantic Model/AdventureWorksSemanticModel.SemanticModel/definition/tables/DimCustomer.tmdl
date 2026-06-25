@@ -5,7 +5,7 @@ table DimCustomer
 		dataType: int64
 		formatString: 0
 		lineageTag: 552ecb54-fda2-48e5-abf8-ab3a18ffc947
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: GeographyKey
 
 		annotation SummarizationSetBy = Automatic
@@ -176,22 +176,35 @@ table DimCustomer
 
 		annotation SummarizationSetBy = Automatic
 
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ce43448-0bac-4738-8c24-1219236d609d
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 9850b118-67a7-4443-8faf-0ca0ea1b9162
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
 	partition DimCustomer = m
 		mode: import
 		queryGroup: 'Dim Customers'
-		source = ```
+		source =
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimCustomer = Source{[Schema="dbo",Item="DimCustomer"]}[Data],
 				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimCustomer,{"DimGeography", "FactInternetSales", "FactSurveyResponse"}),
-				    // concate first, middle, last names
-				    #"Merge The three columns names parts" = Table.CombineColumns(Table.TransformColumnTypes(#"Removed Duplicates key Columns", {{"CustomerKey", type text}}, "en-US"),{"CustomerKey", "FirstName", "MiddleName", "LastName"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Full Name"),
-				    // There was a customer key befor the name 
-				    #"Fix the name column" = Table.TransformColumns(#"Merge The three columns names parts", {{"Full Name", each Text.AfterDelimiter(_, " "), type text}}),
-				    #"Remove Unneccesary Columns" = Table.SelectColumns(#"Fix the name column",{"GeographyKey", "CustomerAlternateKey", "Full Name", "BirthDate", "MaritalStatus", "Gender", "EmailAddress", "YearlyIncome", "TotalChildren", "NumberChildrenAtHome", "EnglishEducation", "EnglishOccupation", "HouseOwnerFlag", "NumberCarsOwned", "AddressLine1", "AddressLine2", "Phone", "DateFirstPurchase", "CommuteDistance"})
+				    #"Merged Names Columns" = Table.CombineColumns(#"Removed Duplicates key Columns",{"FirstName", "MiddleName", "LastName"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Full Name"),
+				    #"Removed Other Columns" = Table.SelectColumns(#"Merged Names Columns",{"CustomerKey", "GeographyKey", "CustomerAlternateKey", "Title", "Full Name", "BirthDate", "MaritalStatus", "Gender", "EmailAddress", "YearlyIncome", "TotalChildren", "NumberChildrenAtHome", "EnglishEducation", "EnglishOccupation", "HouseOwnerFlag", "NumberCarsOwned", "AddressLine1", "AddressLine2", "Phone", "DateFirstPurchase", "CommuteDistance"})
 				in
-				    #"Remove Unneccesary Columns"
-				```
+				    #"Removed Other Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

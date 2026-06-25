@@ -5,7 +5,7 @@ table FactCurrencyRate
 		dataType: int64
 		formatString: 0
 		lineageTag: c1fd86db-ea75-4682-aaf5-c986cf40e437
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: CurrencyKey
 
 		annotation SummarizationSetBy = Automatic
@@ -14,7 +14,7 @@ table FactCurrencyRate
 		dataType: int64
 		formatString: 0
 		lineageTag: 680b26b8-2dfb-49df-88fc-6939f71542ba
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: DateKey
 
 		annotation SummarizationSetBy = Automatic

@@ -5,7 +5,7 @@ table DimDate
 		dataType: int64
 		formatString: 0
 		lineageTag: 75c53dd5-1ac4-413a-8c2a-7862e25ba558
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: DateKey
 
 		annotation SummarizationSetBy = Automatic

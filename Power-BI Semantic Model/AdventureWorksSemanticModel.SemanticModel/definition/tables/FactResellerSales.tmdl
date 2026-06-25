@@ -5,7 +5,7 @@ table FactResellerSales
 		dataType: int64
 		formatString: 0
 		lineageTag: 5c4da82a-c7ac-47a9-af41-07f19d9843e6
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: ProductKey
 
 		annotation SummarizationSetBy = Automatic
@@ -14,7 +14,7 @@ table FactResellerSales
 		dataType: int64
 		formatString: 0
 		lineageTag: 55bae960-ad09-48ce-84a3-ee71c2c54784
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: OrderDateKey
 
 		annotation SummarizationSetBy = Automatic
@@ -41,7 +41,7 @@ table FactResellerSales
 		dataType: int64
 		formatString: 0
 		lineageTag: 8a10962d-b6e4-4e42-934d-099290fb875d
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: ResellerKey
 
 		annotation SummarizationSetBy = Automatic
@@ -50,7 +50,7 @@ table FactResellerSales
 		dataType: int64
 		formatString: 0
 		lineageTag: afac4865-22b8-4b24-bb47-2bc0444bf73c
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: EmployeeKey
 
 		annotation SummarizationSetBy = Automatic
@@ -59,7 +59,7 @@ table FactResellerSales
 		dataType: int64
 		formatString: 0
 		lineageTag: 6f6b0f33-1ae8-404b-8f29-5c6c49aa3ec5
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: PromotionKey
 
 		annotation SummarizationSetBy = Automatic
@@ -68,7 +68,7 @@ table FactResellerSales
 		dataType: int64
 		formatString: 0
 		lineageTag: f9a004e5-adae-4a53-ba89-babff5aa246a
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: CurrencyKey
 
 		annotation SummarizationSetBy = Automatic
@@ -77,7 +77,7 @@ table FactResellerSales
 		dataType: int64
 		formatString: 0
 		lineageTag: d1d8d4d8-4dc2-4dc9-985f-d2d2b6eeaff4
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: SalesTerritoryKey
 
 		annotation SummarizationSetBy = Automatic

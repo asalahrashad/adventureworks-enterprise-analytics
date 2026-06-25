@@ -5,7 +5,7 @@ table DimGeography
 		dataType: int64
 		formatString: 0
 		lineageTag: 98be0e68-08bb-40e1-a4be-8fb8e100b98b
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: GeographyKey
 
 		annotation SummarizationSetBy = Automatic

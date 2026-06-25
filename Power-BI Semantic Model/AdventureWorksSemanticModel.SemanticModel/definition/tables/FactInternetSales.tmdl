@@ -5,7 +5,7 @@ table FactInternetSales
 		dataType: int64
 		formatString: 0
 		lineageTag: 9213f2aa-a9b7-4e2f-b4ad-ec66d0c4ce03
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: ProductKey
 
 		annotation SummarizationSetBy = Automatic
@@ -14,7 +14,7 @@ table FactInternetSales
 		dataType: int64
 		formatString: 0
 		lineageTag: c164931b-b3db-4e14-b7cc-a549960d6924
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: OrderDateKey
 
 		annotation SummarizationSetBy = Automatic
@@ -50,7 +50,7 @@ table FactInternetSales
 		dataType: int64
 		formatString: 0
 		lineageTag: bb5b11f3-2408-4863-9e93-bac84305b9d7
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: PromotionKey
 
 		annotation SummarizationSetBy = Automatic
@@ -59,7 +59,7 @@ table FactInternetSales
 		dataType: int64
 		formatString: 0
 		lineageTag: 050093da-e89b-4d0f-900c-7bb0b6e183ac
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: CurrencyKey
 
 		annotation SummarizationSetBy = Automatic
@@ -68,7 +68,7 @@ table FactInternetSales
 		dataType: int64
 		formatString: 0
 		lineageTag: eeffb0ca-d204-480b-854e-fafad6edac08
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: SalesTerritoryKey
 
 		annotation SummarizationSetBy = Automatic

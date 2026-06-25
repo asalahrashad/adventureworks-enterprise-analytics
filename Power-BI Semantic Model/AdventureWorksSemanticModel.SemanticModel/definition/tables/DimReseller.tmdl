@@ -5,7 +5,7 @@ table DimReseller
 		dataType: int64
 		formatString: 0
 		lineageTag: 80b41719-7141-4067-a3af-821f4ebbea83
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: ResellerKey
 
 		annotation SummarizationSetBy = Automatic
@@ -14,7 +14,7 @@ table DimReseller
 		dataType: int64
 		formatString: 0
 		lineageTag: b0051f5e-b48b-4e40-ac89-7c1fb7e12d88
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: GeographyKey
 
 		annotation SummarizationSetBy = Automatic

@@ -5,7 +5,7 @@ table DimProduct
 		dataType: int64
 		formatString: 0
 		lineageTag: 15693969-1fb3-407a-85d5-a040869c5cb1
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: ProductKey
 
 		annotation SummarizationSetBy = Automatic
@@ -22,7 +22,7 @@ table DimProduct
 		dataType: int64
 		formatString: 0
 		lineageTag: 264e592b-bb6a-4b22-afd8-22ffed5ecce0
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: ProductSubcategoryKey
 
 		annotation SummarizationSetBy = Automatic

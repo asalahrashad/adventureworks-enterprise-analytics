@@ -5,7 +5,7 @@ table DimSalesTerritory
 		dataType: int64
 		formatString: 0
 		lineageTag: 2864389f-e3b0-44a8-870c-c8044ac25d89
-		summarizeBy: count
+		summarizeBy: none
 		sourceColumn: SalesTerritoryKey
 
 		annotation SummarizationSetBy = Automatic
