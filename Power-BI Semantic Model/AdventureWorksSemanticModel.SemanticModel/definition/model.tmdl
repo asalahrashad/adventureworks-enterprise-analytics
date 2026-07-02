@@ -56,7 +56,6 @@ ref table DimProductCategory
 ref table DimProductSubcategory
 ref table DimCustomer
 ref table LocalDateTable_e38c1fc4-90b5-4f84-bb3d-2a665fec5de7
-ref table LocalDateTable_672c3860-6c3a-4f74-8932-5609d92a0e74
 ref table DimReseller
 ref table DimSalesTerritory
 ref table DimGeography
@@ -69,6 +68,7 @@ ref table LocalDateTable_8d8a7769-c6ae-4d71-aeb2-c6b0c99cb41b
 ref table LocalDateTable_e41d7f98-18db-486b-9d23-603a74f31753
 ref table FactCurrencyRate
 ref table LocalDateTable_2fffe066-56ba-42a2-9fde-6f774c7af878
+ref table _Measures
 
 ref cultureInfo en-US
 

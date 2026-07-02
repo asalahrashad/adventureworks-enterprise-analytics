@@ -8,11 +8,6 @@ relationship 73df0c13-87ab-4e08-8c8e-c55c28b4c24d
 	fromColumn: DimCustomer.BirthDate
 	toColumn: LocalDateTable_e38c1fc4-90b5-4f84-bb3d-2a665fec5de7.Date
 
-relationship 29ce8d2a-c22b-49b4-9a21-d8cf184cfe65
-	joinOnDateBehavior: datePartOnly
-	fromColumn: DimCustomer.DateFirstPurchase
-	toColumn: LocalDateTable_672c3860-6c3a-4f74-8932-5609d92a0e74.Date
-
 relationship fc3a6443-0263-42a7-bc3b-cfd7de0806ae
 	joinOnDateBehavior: datePartOnly
 	fromColumn: DimPromotion.StartDate
@@ -141,4 +136,9 @@ relationship 2afff79e-68ab-f848-30c0-37222bf3a8f3
 relationship 74c5fdad-a9fa-138e-c248-be199f9014b7
 	fromColumn: FactCurrencyRate.CurrencyKey
 	toColumn: DimCurrency.CurrencyKey
+
+relationship ea6e466b-becc-7423-e393-9f6d339fded7
+	isActive: false
+	fromColumn: DimCustomer.DateFirstPurchase
+	toColumn: DimDate.FullDateAlternateKey
 

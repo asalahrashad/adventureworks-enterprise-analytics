@@ -1,0 +1,1140 @@
+table _Measures
+	lineageTag: b7ea8d88-155e-44a4-b199-a38f579538d6
+
+	measure 'Internet Revenue' =
+			
+			SUM ( FactInternetSales[SalesAmount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 01 Revenue\Internet
+		lineageTag: 113d65c0-1959-4702-9174-80993a1ed96b
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Discount' =
+			
+			SUM ( FactInternetSales[DiscountAmount] )
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: 01 Revenue\Internet
+		lineageTag: 7c99e3ac-16dc-487e-866f-1d02a5c9510d
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Orders' =
+			
+			DISTINCTCOUNT ( FactInternetSales[SalesOrderNumber] )
+		formatString: 0.0
+		displayFolder: 03 Orders\Internet
+		lineageTag: ffa10567-eeec-46bd-9169-440c65db500a
+
+	measure 'Internet Average Order Value' =
+			
+			DIVIDE (
+			    [Internet Revenue],
+			    [Internet Orders]
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Internet
+		lineageTag: 05504128-9841-455c-a096-81b57a620eba
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Average Selling Price' =
+			
+			DIVIDE (
+			    [Internet Revenue],
+			    SUM ( FactInternetSales[OrderQuantity] )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Internet
+		lineageTag: 849a2657-90bc-4f11-b319-362523af65a8
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Discount %' =
+			
+			DIVIDE (
+			    [Internet Discount],
+			    [Internet Revenue] + [Internet Discount]
+			)
+		displayFolder: 01 Revenue\Internet
+		lineageTag: ee55de04-a2c7-4407-a2d2-32ad2ddd7f00
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Reseller Revenue (Local)' =
+			
+			SUM ( FactResellerSales[SalesAmount] )
+		formatString: \$#,0;(\$#,0);\$#,0
+		displayFolder: 01 Revenue\Reseller (Local)
+		lineageTag: 87a47563-6193-49b5-9c79-dc010e4ddd98
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Orders' =
+			
+			DISTINCTCOUNT ( FactResellerSales[SalesOrderNumber] )
+		formatString: 0.0
+		displayFolder: 03 Orders\Reseller
+		lineageTag: 3b63465f-8b23-4786-8416-25b80aef8c26
+
+	measure 'Reseller Average Order Value (Local)' =
+			
+			DIVIDE (
+			    [Reseller Revenue (Local)],
+			    [Reseller Orders]
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Reseller (Local)
+		lineageTag: df9cae10-46e7-4501-8c81-8b27589f951e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Average Selling Price (Local)' = ```
+			
+			DIVIDE (
+			    [Reseller Revenue (Local)],
+			    SUM ( FactResellerSales[OrderQuantity] )
+			) 
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Reseller (Local)
+		lineageTag: e824d178-7200-480d-8c9c-17ade67c6d9e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Discount (Local)' =
+			
+			SUM ( FactResellerSales[DiscountAmount] )
+		displayFolder: 01 Revenue\Reseller (Local)
+		lineageTag: ff4de5f9-ff25-47ae-8317-4cde3b98565a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Reseller Discount % (Local)' =
+			
+			DIVIDE (
+			    [Reseller Discount (Local)],
+			    [Reseller Revenue (Local)] + [Reseller Discount (Local)]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 01 Revenue\Reseller (Local)
+		lineageTag: 5eabccd7-39c3-4f46-bfd5-b16af3acbcf5
+
+	measure 'Reseller Revenue (USD)' =
+			
+			SUMX (
+			    FactResellerSales,
+			    FactResellerSales[SalesAmount]
+			        * LOOKUPVALUE (
+			            FactCurrencyRate[AverageRate],
+			            FactCurrencyRate[CurrencyKey], FactResellerSales[CurrencyKey],
+			            FactCurrencyRate[DateKey], FactResellerSales[OrderDateKey]
+			        )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Reseller (USD)
+		lineageTag: 365c8b8e-e5af-4406-bcf9-078610dc12bc
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Discount (USD)' =
+			
+			SUMX (
+			    FactResellerSales,
+			    FactResellerSales[DiscountAmount]
+			        * LOOKUPVALUE (
+			            FactCurrencyRate[AverageRate],
+			            FactCurrencyRate[CurrencyKey], FactResellerSales[CurrencyKey],
+			            FactCurrencyRate[DateKey], FactResellerSales[OrderDateKey]
+			        )
+			)
+		displayFolder: 01 Revenue\Reseller (USD)
+		lineageTag: ed3e741f-1114-4614-acf2-9deac5ddccc8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Reseller Average Order Value (USD)' =
+			
+			DIVIDE (
+			    [Reseller Revenue (USD)],
+			    [Reseller Orders]
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Reseller (USD)
+		lineageTag: 3cf15144-9ed1-4cb2-9e53-e2f530332f0e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Average Selling Price (USD)' =
+			
+			DIVIDE (
+			    [Reseller Revenue (USD)],
+			    SUM ( FactResellerSales[OrderQuantity] )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Reseller (USD)
+		lineageTag: 2e6be8ff-0720-4ac6-b72a-784bf78df0cb
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Discount % (USD)' =
+			
+			DIVIDE (
+			    [Reseller Discount (USD)],
+			    [Reseller Revenue (USD)] + [Reseller Discount (USD)]
+			)
+		displayFolder: 01 Revenue\Reseller (USD)
+		lineageTag: f074010f-1321-4982-9d15-58672c87b8f6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Revenue' =
+			
+			[Internet Revenue]
+			+
+			[Reseller Revenue (USD)]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Consolidated
+		lineageTag: 500dabe6-58d5-45e8-ad55-ee54342f3f70
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Orders' =
+			
+			[Internet Orders]
+			+
+			[Reseller Orders]
+		formatString: 0.0
+		displayFolder: 03 Orders\Consolidated
+		lineageTag: 463c2950-92d1-4cbe-a159-432def578192
+
+	measure 'Average Order Value' =
+			
+			DIVIDE (
+			    [Total Revenue],
+			    [Total Orders]
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Consolidated
+		lineageTag: 492beffd-566f-465b-8e77-5e38421e5e6f
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Quantity' =
+			
+			SUM ( FactInternetSales[OrderQuantity] )
+		formatString: 0
+		displayFolder: 03 Orders\Internet
+		lineageTag: 74f3c7b5-5c78-4561-8808-a440b6d5ce43
+
+	measure 'Reseller Quantity' =
+			
+			SUM ( FactResellerSales[OrderQuantity] )
+		formatString: 0
+		displayFolder: 03 Orders\Reseller
+		lineageTag: b2212f08-4b5c-40b1-8db7-bf51f73e8f64
+
+	measure 'Total Quantity' =
+			
+			[Internet Quantity]
+			+
+			[Reseller Quantity]
+		formatString: 0
+		displayFolder: 03 Orders\Consolidated
+		lineageTag: 8c827bb4-be3d-4f60-9dfc-11c9bea1537d
+
+	measure 'Average Selling Price' =
+			
+			DIVIDE (
+			    [Total Revenue],
+			    [Total Quantity]
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 01 Revenue\Consolidated
+		lineageTag: 7a021afd-5548-44e1-9ea1-238789d50f35
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Cost' =
+			
+			SUM ( FactInternetSales[TotalProductCost] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Internet
+		lineageTag: ccb41aeb-62ac-4e24-8b94-61bbbe4e0a38
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Gross Profit' = ```
+			
+			[Internet Revenue]
+			-
+			[Internet Cost] 
+			```
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Internet
+		lineageTag: 39e26253-a324-4a3b-93da-60ed21717993
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Gross Margin %' =
+			
+			DIVIDE (
+			    [Internet Gross Profit],
+			    [Internet Revenue]
+			)
+		displayFolder: 02 Profitability\Internet
+		lineageTag: 0d538d26-39de-4034-b249-cf739b2114d8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Internet Tax' =
+			
+			SUM ( FactInternetSales[TaxAmt] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Internet
+		lineageTag: 6e97dbf2-fec1-4a73-8946-9986cdacbd77
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Freight' =
+			
+			SUM ( FactInternetSales[Freight] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Internet
+		lineageTag: 1786e5a6-4e70-40b0-a9c2-25fdc15ea9a3
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Cost' =
+			
+			SUM ( FactResellerSales[TotalProductCost] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Reseller (USD)
+		lineageTag: c55e587b-aa16-4634-b291-44d6bbc46c3f
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Gross Profit' =
+			
+			[Reseller Revenue (USD)]
+			-
+			[Reseller Cost]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Reseller (USD)
+		lineageTag: 2e2835fb-d8c5-471b-829d-8ec8df05dfcb
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Gross Margin %' =
+			
+			DIVIDE (
+			    [Reseller Gross Profit],
+			    [Reseller Revenue (USD)]
+			)
+		displayFolder: 02 Profitability\Reseller (USD)
+		lineageTag: 3eaeb831-600f-483d-90cd-b1ffead1a3e0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Reseller Tax' =
+			
+			SUMX (
+			    FactResellerSales,
+			    FactResellerSales[TaxAmt]
+			        *
+			        LOOKUPVALUE (
+			            FactCurrencyRate[AverageRate],
+			            FactCurrencyRate[CurrencyKey], FactResellerSales[CurrencyKey],
+			            FactCurrencyRate[DateKey], FactResellerSales[OrderDateKey]
+			        )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Reseller (USD)
+		lineageTag: 2b01ffe2-a5e8-4a7e-9d00-6444996d3c51
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Reseller Freight' =
+			
+			SUMX (
+			    FactResellerSales,
+			    FactResellerSales[Freight]
+			        *
+			        LOOKUPVALUE (
+			            FactCurrencyRate[AverageRate],
+			            FactCurrencyRate[CurrencyKey], FactResellerSales[CurrencyKey],
+			            FactCurrencyRate[DateKey], FactResellerSales[OrderDateKey]
+			        )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Reseller (USD)
+		lineageTag: 60d6d6eb-aceb-4049-aa4c-f783f9afb24b
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Cost' =
+			
+			[Internet Cost]
+			+
+			[Reseller Cost]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Consolidated
+		lineageTag: 2b1c6afa-f24f-46e4-9382-b102aca51091
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Gross Profit' =
+			
+			[Internet Revenue]
+			+
+			[Reseller Revenue (USD)]
+			-
+			[Total Cost]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Consolidated
+		lineageTag: 5cdfd5f3-6883-4845-9000-c316fe357ba6
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Gross Margin %' =
+			
+			DIVIDE (
+			    [Gross Profit],
+			    [Internet Revenue] + [Reseller Revenue (USD)]
+			)
+		displayFolder: 02 Profitability\Consolidated
+		lineageTag: 71283e17-c504-4ad6-9518-52de0bd59492
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Tax' =
+			
+			[Internet Tax]
+			+
+			[Reseller Tax]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Consolidated
+		lineageTag: db3b7719-feb2-4035-ba90-23b967f62593
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total Freight' =
+			
+			[Internet Freight]
+			+
+			[Reseller Freight]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 02 Profitability\Consolidated
+		lineageTag: b7b6c5d0-2e97-486a-96a4-da3e6e9e7340
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Internet Order Lines' =
+			
+			COUNTROWS ( FactInternetSales )
+		formatString: 0
+		displayFolder: 03 Orders\Internet
+		lineageTag: 4a98ec0e-8b45-4e54-ad65-84ae5d1f9d13
+
+	measure 'Internet Average Quantity per Order' =
+			
+			DIVIDE (
+			    [Internet Quantity],
+			    [Internet Orders]
+			)
+		displayFolder: 03 Orders\Internet
+		lineageTag: 30f8af92-71a5-4177-9efa-4d4618022e91
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Reseller Order Lines' =
+			
+			COUNTROWS ( FactResellerSales )
+		formatString: 0
+		displayFolder: 03 Orders\Reseller
+		lineageTag: a7c95fbc-ae7d-4579-bd4d-9e1a6ea7fdec
+
+	measure 'Reseller Average Quantity per Order' =
+			
+			DIVIDE (
+			    [Reseller Quantity],
+			    [Reseller Orders]
+			)
+		displayFolder: 03 Orders\Reseller
+		lineageTag: 3df1299a-24e7-4c1f-b669-4f8b72b758dd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Order Lines' =
+			
+			[Internet Order Lines]
+			+
+			[Reseller Order Lines]
+		formatString: 0
+		displayFolder: 03 Orders\Consolidated
+		lineageTag: 195f22bf-b2c7-414d-962d-f06117eff677
+
+	measure 'Overall Average Quantity per Order' =
+			
+			DIVIDE (
+			    [Total Quantity],
+			    [Total Orders]
+			)
+		displayFolder: 03 Orders\Consolidated
+		lineageTag: 4e9a319f-6d50-439f-88e8-a16e79fb2eed
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Customers' =
+			
+			DISTINCTCOUNT ( FactInternetSales[CustomerKey] )
+		formatString: 0.00
+		displayFolder: 04 Customers
+		lineageTag: 488f38d3-bfe3-4822-b057-d65bcddce4c7
+
+	measure 'New Customers' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT(DimCustomer[CustomerKey]),
+			    USERELATIONSHIP(
+			        DimCustomer[DateFirstPurchase],
+			        DimDate[FullDateAlternateKey]
+			    )
+			)
+		formatString: 0.00
+		displayFolder: 04 Customers
+		lineageTag: dc0eb818-6503-4481-b51e-6a68111de61f
+
+	measure 'Revenue per Customer' =
+			
+			DIVIDE (
+			    [Internet Revenue],
+			    [Total Customers]
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 04 Customers
+		lineageTag: 2dd2d067-ff5f-4338-af52-406b9e941ca2
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Average Orders per Customer' =
+			
+			DIVIDE (
+			    [Internet Orders],
+			    [Total Customers]
+			)
+		displayFolder: 04 Customers
+		lineageTag: 6c8aa4d3-3b9d-4348-9b87-e64e072f15cd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Returning Customers' =
+			
+			[Total Customers] - [New Customers]
+		formatString: 0
+		displayFolder: 04 Customers
+		lineageTag: 5a41f112-5ad2-472d-8abb-e1695e2a4a01
+
+	measure 'Customer Retention %' =
+			
+			DIVIDE (
+			    [Returning Customers],
+			    [Total Customers]
+			)
+		displayFolder: 04 Customers
+		lineageTag: b9a38afb-a3af-41ef-85b9-d4da7e6d0d18
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Repeat Purchase Rate' =
+			
+			VAR CustomersWithMultipleOrders =
+			    COUNTROWS (
+			        FILTER (
+			            VALUES ( FactInternetSales[CustomerKey] ),
+			            CALCULATE (
+			                DISTINCTCOUNT ( FactInternetSales[SalesOrderNumber] )
+			            ) > 1
+			        )
+			    )
+			RETURN
+			DIVIDE (
+			    CustomersWithMultipleOrders,
+			    [Total Customers]
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 04 Customers
+		lineageTag: 9eb68a29-9b04-47e1-95c0-716001436fa0
+
+	measure 'Active Products' =
+			
+			COUNTROWS (
+			    FILTER (
+			        VALUES ( DimProduct[ProductKey] ),
+			        [Total Revenue] > 0
+			    )
+			)
+		formatString: 0
+		displayFolder: 05 Products
+		lineageTag: 85c09d24-3eb8-4ade-88b1-5cc88ff35e77
+
+	measure 'Product Mix %' =
+			
+			DIVIDE (
+			    [Total Revenue],
+			    CALCULATE (
+			        [Total Revenue],
+			        ALL ( DimProduct )
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 05 Products
+		lineageTag: 0e5b3276-09c1-4c41-a474-400dac193a2d
+
+	measure 'Average Discount %' =
+			
+			DIVIDE (
+			    SUM ( FactInternetSales[DiscountAmount] )
+			        + SUMX (
+			            FactResellerSales,
+			            FactResellerSales[DiscountAmount]
+			                * LOOKUPVALUE (
+			                    FactCurrencyRate[AverageRate],
+			                    FactCurrencyRate[CurrencyKey], FactResellerSales[CurrencyKey],
+			                    FactCurrencyRate[DateKey], FactResellerSales[OrderDateKey]
+			                )
+			        ),
+			    SUM ( FactInternetSales[ExtendedAmount] )
+			        + SUMX (
+			            FactResellerSales,
+			            FactResellerSales[ExtendedAmount]
+			                * LOOKUPVALUE (
+			                    FactCurrencyRate[AverageRate],
+			                    FactCurrencyRate[CurrencyKey], FactResellerSales[CurrencyKey],
+			                    FactCurrencyRate[DateKey], FactResellerSales[OrderDateKey]
+			                )
+			        )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 05 Products
+		lineageTag: ac9620db-aae0-4ef6-b4f2-70260837c939
+
+	measure 'High Margin Products' =
+			
+			VAR AvgMargin =
+			    AVERAGEX (
+			        ALL ( DimProduct ),
+			        CALCULATE ( [Gross Profit] )
+			    )
+			RETURN
+			COUNTROWS (
+			    FILTER (
+			        VALUES ( DimProduct[ProductKey] ),
+			        [Gross Profit] > AvgMargin
+			    )
+			)
+		formatString: 0
+		displayFolder: 05 Products
+		lineageTag: aa061c5a-2622-4f0b-a006-9eb4eebaa304
+
+	measure 'Total Resellers' =
+			
+			DISTINCTCOUNT ( FactResellerSales[ResellerKey] )
+		formatString: 0
+		displayFolder: 06 Resellers
+		lineageTag: 930be488-ff46-4928-b096-70fc9833936a
+
+	measure 'Active Resellers' =
+			
+			COUNTROWS (
+			    FILTER (
+			        VALUES ( DimReseller[ResellerKey] ),
+			        [Reseller Revenue (USD)] > 0
+			    )
+			)
+		formatString: 0
+		displayFolder: 06 Resellers
+		lineageTag: 180f0757-20dc-435f-8ef6-477a31fb3ece
+
+	measure 'Average Annual Revenue' =
+			
+			AVERAGE ( DimReseller[AnnualRevenue] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 06 Resellers
+		lineageTag: f9fbdc6f-b6c1-4775-89ab-e41dff77645b
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Average Annual Sales' =
+			
+			AVERAGE ( DimReseller[AnnualSales] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 06 Resellers
+		lineageTag: ba295944-2e92-43a0-b660-4f1236d231a4
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Average Number of Employees' =
+			
+			AVERAGE ( DimReseller[NumberEmployees] )
+		displayFolder: 06 Resellers
+		lineageTag: fa82237e-694f-48cd-be8e-fe5ce498808a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Average Revenue per Employee' =
+			
+			DIVIDE (
+			    SUM ( DimReseller[AnnualRevenue] ),
+			    SUM ( DimReseller[NumberEmployees] )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 06 Resellers
+		lineageTag: 0009c301-5b73-412d-81b9-1533e211d1c5
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Average Reseller Age' =
+			
+			AVERAGEX (
+			    DimReseller,
+			    YEAR ( TODAY() ) - DimReseller[YearOpened]
+			)
+		displayFolder: 06 Resellers
+		lineageTag: b17130d0-cc59-4c5e-9c6c-d3b53837c149
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Quota' =
+			
+			SUM ( FactSalesQuota[SalesAmountQuota] )
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 07 Employee & Quota\Quota Performance
+		lineageTag: 0b2e9d65-a6c5-4c2a-8f44-e1d3b6fecbf0
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Quota Achievement %' =
+			
+			DIVIDE (
+			    [Reseller Revenue (USD)],
+			    [Sales Quota]
+			)
+		displayFolder: 07 Employee & Quota\Quota Performance
+		lineageTag: b54ee5b4-7a81-48e6-8c83-4e265f2b2040
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Quota Variance' =
+			
+			[Reseller Revenue (USD)]
+			-
+			[Sales Quota]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 07 Employee & Quota\Quota Performance
+		lineageTag: 8fae84b3-9440-4e79-a73e-cd7e753bb22f
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Quota Variance %' =
+			
+			DIVIDE (
+			    [Quota Variance],
+			    [Sales Quota]
+			)
+		displayFolder: 07 Employee & Quota\Quota Performance
+		lineageTag: c810bad1-2442-4dff-9b7d-7ef9846f0d6e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YTD Sales vs Quota' =
+			
+			CALCULATE (
+			    [Reseller Revenue (USD)],
+			    DATESYTD ( DimDate[FullDateAlternateKey] )
+			)
+			-
+			CALCULATE (
+			    [Sales Quota],
+			    DATESYTD ( DimDate[FullDateAlternateKey] )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 07 Employee & Quota\Quota Performance
+		lineageTag: 9420208c-91f0-4228-9e87-da1fd7112212
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'YTD Quota Achievement %' =
+			
+			DIVIDE (
+			    CALCULATE (
+			        [Reseller Revenue (USD)],
+			        DATESYTD ( DimDate[FullDateAlternateKey] )
+			    ),
+			    CALCULATE (
+			        [Sales Quota],
+			        DATESYTD ( DimDate[FullDateAlternateKey] )
+			    )
+			)
+		displayFolder: 07 Employee & Quota\Quota Performance
+		lineageTag: 54c80fca-6a4a-4662-b835-30dbb43cedb8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Active Employees' =
+			
+			DISTINCTCOUNT ( FactResellerSales[EmployeeKey] )
+		formatString: 0
+		displayFolder: 07 Employee & Quota\Productivity
+		lineageTag: 66e918e1-6f9a-4392-a207-76aae4897738
+
+	measure 'Employee Revenue Rank' =
+			
+			RANKX (
+			    ALL ( DimEmployee[EmployeeKey] ),
+			    [Reseller Revenue (USD)],
+			    ,
+			    DESC,
+			    DENSE
+			)
+		formatString: 0
+		displayFolder: 07 Employee & Quota\Ranking
+		lineageTag: 7cdb078f-dd54-4dee-bcd7-893c9dc05a88
+
+	measure 'Employee Profit Rank' =
+			
+			RANKX (
+			    ALL ( DimEmployee[EmployeeKey] ),
+			    [Reseller Gross Profit],
+			    ,
+			    DESC,
+			    DENSE
+			)
+		formatString: 0
+		displayFolder: 07 Employee & Quota\Ranking
+		lineageTag: d28cd28d-5a40-420e-bca4-89cb3fd74de2
+
+	measure 'Orders with Promotion' =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( FactInternetSales[SalesOrderNumber] ),
+			    KEEPFILTERS ( FactInternetSales[PromotionKey] > 1 )
+			)
+		formatString: 0
+		displayFolder: 08 Promotions
+		lineageTag: 4fda8c82-aeb5-46a0-a039-3bab1b60c38d
+
+	measure 'Orders without Promotion' =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( FactInternetSales[SalesOrderNumber] ),
+			    KEEPFILTERS ( FactInternetSales[PromotionKey] = 1 )
+			)
+		formatString: 0
+		displayFolder: 08 Promotions
+		lineageTag: 2a20171d-934e-4a5c-95f8-f00184219518
+
+	measure 'Promotion Adoption %' =
+			
+			DIVIDE (
+			    [Orders with Promotion],
+			    [Internet Orders]
+			)
+		displayFolder: 08 Promotions
+		lineageTag: d21edb88-1241-4e7b-832e-cda2f4cbc105
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promotion Contribution %' =
+			
+			DIVIDE (
+			    CALCULATE (
+			        [Internet Revenue],
+			        KEEPFILTERS ( FactInternetSales[PromotionKey] > 1 )
+			    ),
+			    [Internet Revenue]
+			)
+		displayFolder: 08 Promotions
+		lineageTag: 54d7f19a-6a7f-4bdb-9d37-b7b9b48f7877
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Orders with 0% Promotion' =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( FactInternetSales[SalesOrderNumber] ),
+			    KEEPFILTERS ( DimPromotion[PromotionKey] <> 1 ),
+			    KEEPFILTERS ( DimPromotion[DiscountPct] = 0 )
+			)
+		formatString: 0
+		displayFolder: 08 Promotions
+		lineageTag: 7f993c66-d92c-4047-9501-291086417c58
+
+	measure 'Orders with Discount Promotion' =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( FactInternetSales[SalesOrderNumber] ),
+			    KEEPFILTERS ( DimPromotion[PromotionKey] <> 1 ),
+			    KEEPFILTERS ( DimPromotion[DiscountPct] > 0 )
+			)
+		formatString: 0
+		displayFolder: 08 Promotions
+		lineageTag: 9d254e57-c71c-4212-b6cd-18bb7ccd4aec
+
+	measure 'Active Territories' =
+			
+			COUNTROWS (
+			    FILTER (
+			        VALUES ( DimSalesTerritory[SalesTerritoryKey] ),
+			        [Total Revenue] > 0
+			    )
+			)
+		formatString: 0
+		displayFolder: 09 Territories
+		lineageTag: f303a84d-0a35-4bf7-b4d2-dc7308a1aaf0
+
+	measure 'Territory Contribution %' =
+			
+			DIVIDE (
+			    [Total Revenue],
+			    CALCULATE (
+			        [Total Revenue],
+			        ALL ( DimSalesTerritory )
+			    )
+			)
+		displayFolder: 09 Territories
+		lineageTag: d6a1a8d8-6db0-4b50-8901-7bb51301e8d0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Territory Revenue Growth %' =
+			
+			VAR CurrentRevenue =
+			    [Total Revenue]
+			
+			VAR PreviousRevenue =
+			    CALCULATE (
+			        [Total Revenue],
+			        DATEADD ( DimDate[FullDateAlternateKey], -1, YEAR )
+			    )
+			
+			RETURN
+			DIVIDE (
+			    CurrentRevenue - PreviousRevenue,
+			    PreviousRevenue
+			)
+		displayFolder: 09 Territories
+		lineageTag: 70c51c75-7db2-4d35-be2e-e1568bc99be5
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Territory Profit Contribution %' =
+			
+			DIVIDE (
+			    [Gross Profit] ,
+			    CALCULATE (
+			        [Gross Profit] ,
+			        ALL ( DimSalesTerritory )
+			    )
+			)
+		displayFolder: 09 Territories
+		lineageTag: 5cf234ac-5155-424c-8e66-15a91b0492b8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'FX Adjusted Revenue' =
+			
+			SUMX (
+			    FactInternetSales,
+			    FactInternetSales[SalesAmount]
+			        * LOOKUPVALUE (
+			            FactCurrencyRate[AverageRate],
+			            FactCurrencyRate[CurrencyKey], FactInternetSales[CurrencyKey],
+			            FactCurrencyRate[DateKey], FactInternetSales[OrderDateKey]
+			        )
+			)
+			+
+			SUMX (
+			    FactResellerSales,
+			    FactResellerSales[SalesAmount]
+			        * LOOKUPVALUE (
+			            FactCurrencyRate[AverageRate],
+			            FactCurrencyRate[CurrencyKey], FactResellerSales[CurrencyKey],
+			            FactCurrencyRate[DateKey], FactResellerSales[OrderDateKey]
+			        )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 10 Currency
+		lineageTag: b8fcbf33-ceba-4963-9e6e-bc98e027c78f
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'FX Adjustment Impact' =
+			
+			[FX Adjusted Revenue] - [Total Revenue]
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 10 Currency
+		lineageTag: 1044d95a-45b3-47a1-857d-4cf576793911
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'YTD Revenue' =
+			
+			CALCULATE (
+			    [Total Revenue],
+			    DATESYTD ( DimDate[FullDateAlternateKey] )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 11 Time Intelligence
+		lineageTag: fbc3e0d9-f394-4653-901f-fef12556d651
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'MTD Revenue' =
+			
+			CALCULATE (
+			    [Total Revenue],
+			    DATESMTD ( DimDate[FullDateAlternateKey] )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 11 Time Intelligence
+		lineageTag: d1e46c43-dcb2-41f0-84c8-262a4f0e501c
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'QTD Revenue' =
+			
+			CALCULATE (
+			    [Total Revenue],
+			    DATESQTD ( DimDate[FullDateAlternateKey] )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 11 Time Intelligence
+		lineageTag: 9e70c0f2-9673-4e9b-833e-7e59c55acaa6
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Rolling 12 Months Revenue' =
+			
+			CALCULATE (
+			    [Total Revenue],
+			    DATESINPERIOD (
+			        DimDate[FullDateAlternateKey],
+			        MAX ( DimDate[FullDateAlternateKey] ),
+			        -12,
+			        MONTH
+			    )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 11 Time Intelligence
+		lineageTag: b59fc968-ec17-4d54-9265-bf55916831b4
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Running Total Revenue' =
+			
+			CALCULATE (
+			    [Total Revenue],
+			    FILTER (
+			        ALL ( DimDate[FullDateAlternateKey] ),
+			        DimDate[FullDateAlternateKey] <= MAX ( DimDate[FullDateAlternateKey] )
+			    )
+			)
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: 11 Time Intelligence
+		lineageTag: 256b8252-25c0-4928-b576-a9d45ab60171
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'YoY Revenue Growth %' =
+			
+			VAR _Current =
+			    [Total Revenue]
+			
+			VAR Previous =
+			    CALCULATE (
+			        [Total Revenue],
+			        SAMEPERIODLASTYEAR ( DimDate[FullDateAlternateKey] )
+			    )
+			
+			RETURN
+			DIVIDE ( _Current - Previous, Previous )
+		displayFolder: 11 Time Intelligence
+		lineageTag: bf3ed4a5-efee-4e7e-ab77-a15638b6ce23
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY Profit Growth %' =
+			
+			VAR _Current =
+			    [Gross Profit]
+			
+			VAR Previous =
+			    CALCULATE (
+			        [Gross Profit],
+			        SAMEPERIODLASTYEAR ( DimDate[FullDateAlternateKey] )
+			    )
+			
+			RETURN
+			DIVIDE ( _Current - Previous, Previous )
+		displayFolder: 11 Time Intelligence
+		lineageTag: db510cfd-2358-4294-8149-81dbd751b83d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YoY Orders Growth %' =
+			
+			VAR _Current =
+			    [Total Orders]
+			
+			VAR Previous =
+			    CALCULATE (
+			        [Total Orders],
+			        SAMEPERIODLASTYEAR ( DimDate[FullDateAlternateKey] )
+			    )
+			
+			RETURN
+			DIVIDE ( _Current - Previous, Previous )
+		displayFolder: 11 Time Intelligence
+		lineageTag: 0fca4f59-ca14-4a61-8bc6-53ccad567df0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Last Refresh Date' =
+			
+			MAX ( DimDate[FullDateAlternateKey] )
+		formatString: General Date
+		displayFolder: 99 Helper Measure
+		lineageTag: 953ce709-fe33-4732-8b3e-7a6a3e4a3b02
+
+	measure 'Max Order Date' =
+			
+			MAXX (
+			    UNION (
+			        SELECTCOLUMNS ( FactInternetSales, "Date", FactInternetSales[OrderDateKey] ),
+			        SELECTCOLUMNS ( FactResellerSales, "Date", FactResellerSales[OrderDateKey] )
+			    ),
+			    [Date]
+			)
+		formatString: 0
+		displayFolder: 99 Helper Measure
+		lineageTag: 3b793197-bf4a-4273-a372-0e40b0a76bca
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: f9618bc6-b9bd-41f4-a629-a25da966ccdb
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = 058c61ec1f2141acbc077023e7d23ea1
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

@@ -151,11 +151,6 @@ table DimCustomer
 		summarizeBy: none
 		sourceColumn: DateFirstPurchase
 
-		variation Variation
-			isDefault
-			relationship: 29ce8d2a-c22b-49b4-9a21-d8cf184cfe65
-			defaultHierarchy: LocalDateTable_672c3860-6c3a-4f74-8932-5609d92a0e74.'Date Hierarchy'
-
 		annotation SummarizationSetBy = Automatic
 
 		annotation UnderlyingDateTimeDataType = Date
