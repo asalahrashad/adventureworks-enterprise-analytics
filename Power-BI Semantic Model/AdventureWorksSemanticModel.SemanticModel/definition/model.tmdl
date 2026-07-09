@@ -50,7 +50,6 @@ ref table DateTableTemplate_ed20aa21-b64e-4ba5-9bf6-6156cb5f9da6
 ref table FactResellerSales
 ref table FactInternetSales
 ref table DimDate
-ref table LocalDateTable_a4054b8a-ec66-45e7-99c7-5fecb482eefc
 ref table DimProduct
 ref table DimProductCategory
 ref table DimProductSubcategory

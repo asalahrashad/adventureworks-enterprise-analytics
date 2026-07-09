@@ -390,7 +390,7 @@ table _Measures
 			[Reseller Revenue (USD)]
 			-
 			[Total Cost]
-		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		displayFolder: 02 Profitability\Consolidated
 		lineageTag: 5cdfd5f3-6883-4845-9000-c316fe357ba6
 

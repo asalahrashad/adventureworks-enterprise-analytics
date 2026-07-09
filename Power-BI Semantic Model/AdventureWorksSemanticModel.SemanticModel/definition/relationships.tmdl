@@ -1,8 +1,3 @@
-relationship d63e74c9-f1bd-416b-a6cf-d830dddfc8ce
-	joinOnDateBehavior: datePartOnly
-	fromColumn: DimDate.FullDateAlternateKey
-	toColumn: LocalDateTable_a4054b8a-ec66-45e7-99c7-5fecb482eefc.Date
-
 relationship 73df0c13-87ab-4e08-8c8e-c55c28b4c24d
 	joinOnDateBehavior: datePartOnly
 	fromColumn: DimCustomer.BirthDate
