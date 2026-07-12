@@ -45,9 +45,10 @@ table DimProductSubcategory
 				    dbo_DimProductSubcategory = Source{[Schema="dbo",Item="DimProductSubcategory"]}[Data],
 				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimProductSubcategory,{"DimProduct", "DimProductCategory"}),
 				    // Columns Like Descriptions or names in other languages 
-				    #"Removed Unnecessary Columns" = Table.SelectColumns(#"Removed Duplicates key Columns",{"ProductSubcategoryKey", "ProductSubcategoryAlternateKey", "EnglishProductSubcategoryName", "ProductCategoryKey"})
+				    #"Removed Unnecessary Columns" = Table.SelectColumns(#"Removed Duplicates key Columns",{"ProductSubcategoryKey", "ProductSubcategoryAlternateKey", "EnglishProductSubcategoryName", "ProductCategoryKey"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Unnecessary Columns",{"ProductSubcategoryKey", "ProductCategoryKey", "ProductSubcategoryAlternateKey", "EnglishProductSubcategoryName"})
 				in
-				    #"Removed Unnecessary Columns"
+				    #"Reordered Columns"
 				```
 
 	annotation PBI_NavigationStepName = Navigation

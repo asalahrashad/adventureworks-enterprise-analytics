@@ -197,9 +197,10 @@ table DimCustomer
 				    dbo_DimCustomer = Source{[Schema="dbo",Item="DimCustomer"]}[Data],
 				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimCustomer,{"DimGeography", "FactInternetSales", "FactSurveyResponse"}),
 				    #"Merged Names Columns" = Table.CombineColumns(#"Removed Duplicates key Columns",{"FirstName", "MiddleName", "LastName"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Full Name"),
-				    #"Removed Other Columns" = Table.SelectColumns(#"Merged Names Columns",{"CustomerKey", "GeographyKey", "CustomerAlternateKey", "Title", "Full Name", "BirthDate", "MaritalStatus", "Gender", "EmailAddress", "YearlyIncome", "TotalChildren", "NumberChildrenAtHome", "EnglishEducation", "EnglishOccupation", "HouseOwnerFlag", "NumberCarsOwned", "AddressLine1", "AddressLine2", "Phone", "DateFirstPurchase", "CommuteDistance"})
+				    #"Removed Other Columns" = Table.SelectColumns(#"Merged Names Columns",{"CustomerKey", "GeographyKey", "CustomerAlternateKey", "Title", "Full Name", "BirthDate", "MaritalStatus", "Gender", "EmailAddress", "YearlyIncome", "TotalChildren", "NumberChildrenAtHome", "EnglishEducation", "EnglishOccupation", "HouseOwnerFlag", "NumberCarsOwned", "AddressLine1", "AddressLine2", "Phone", "DateFirstPurchase", "CommuteDistance"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Other Columns",{"CustomerKey", "CustomerAlternateKey", "GeographyKey", "Full Name", "EmailAddress", "Title", "Gender", "BirthDate", "MaritalStatus", "YearlyIncome", "TotalChildren", "NumberChildrenAtHome", "EnglishEducation", "EnglishOccupation", "HouseOwnerFlag", "NumberCarsOwned", "AddressLine1", "AddressLine2", "Phone", "DateFirstPurchase", "CommuteDistance"})
 				in
-				    #"Removed Other Columns"
+				    #"Reordered Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

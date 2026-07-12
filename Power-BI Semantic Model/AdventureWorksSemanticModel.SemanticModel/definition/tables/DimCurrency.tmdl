@@ -16,6 +16,8 @@ table DimCurrency
 		summarizeBy: none
 		sourceColumn: CurrencyAlternateKey
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column CurrencyName

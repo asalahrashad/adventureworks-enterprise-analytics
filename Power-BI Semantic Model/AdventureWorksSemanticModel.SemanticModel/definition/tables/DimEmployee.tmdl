@@ -174,9 +174,10 @@ table DimEmployee
 				    dbo_DimEmployee = Source{[Schema="dbo",Item="DimEmployee"]}[Data],
 				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimEmployee,{"DimEmployee(EmployeeKey)", "DimEmployee(ParentEmployeeKey)", "DimSalesTerritory", "FactResellerSales", "FactSalesQuota"}),
 				    #"Removed Unnecessary Columns" = Table.SelectColumns(#"Removed Duplicates key Columns",{"EmployeeKey", "ParentEmployeeKey", "SalesTerritoryKey", "FirstName", "LastName", "MiddleName", "Title", "HireDate", "BirthDate", "EmailAddress", "Phone", "MaritalStatus", "Gender", "PayFrequency", "BaseRate", "VacationHours", "SickLeaveHours", "SalesPersonFlag", "DepartmentName"}),
-				    #"Merge names Parts Columns" = Table.CombineColumns(#"Removed Unnecessary Columns",{"FirstName", "MiddleName", "LastName"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Full Name")
+				    #"Merge names Parts Columns" = Table.CombineColumns(#"Removed Unnecessary Columns",{"FirstName", "MiddleName", "LastName"},Combiner.CombineTextByDelimiter(" ", QuoteStyle.None),"Full Name"),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Merge names Parts Columns",{"EmployeeKey", "ParentEmployeeKey", "SalesTerritoryKey", "Full Name", "Title", "EmailAddress", "HireDate", "BirthDate", "Phone", "MaritalStatus", "Gender", "PayFrequency", "BaseRate", "VacationHours", "SickLeaveHours", "SalesPersonFlag", "DepartmentName"})
 				in
-				    #"Merge names Parts Columns"
+				    #"Reordered Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

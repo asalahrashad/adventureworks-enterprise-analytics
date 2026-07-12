@@ -30,14 +30,14 @@ queryGroup 'Dim Sales Context'
 
 	annotation PBI_QueryGroupOrder = 5
 
-/// Query group for diagnostics
-queryGroup Diagnostics
-
-	annotation PBI_QueryGroupOrder = 8
-
 queryGroup Currency
 
 	annotation PBI_QueryGroupOrder = 7
+
+/// Query group for diagnostics
+queryGroup 'Diagnostic Data'
+
+	annotation PBI_QueryGroupOrder = 8
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 

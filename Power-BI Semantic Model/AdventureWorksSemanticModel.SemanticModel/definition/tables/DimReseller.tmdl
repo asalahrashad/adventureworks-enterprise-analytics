@@ -185,9 +185,10 @@ table DimReseller
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimReseller = Source{[Schema="dbo",Item="DimReseller"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimReseller,{"DimGeography", "FactResellerSales"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimReseller,{"DimGeography", "FactResellerSales"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Duplicates key Columns",{"ResellerKey", "ResellerAlternateKey", "ResellerName", "GeographyKey", "Phone", "BusinessType", "NumberEmployees", "OrderFrequency", "OrderMonth", "FirstOrderYear", "LastOrderYear", "ProductLine", "AddressLine1", "AddressLine2", "AnnualSales", "BankName", "MinPaymentType", "MinPaymentAmount", "AnnualRevenue", "YearOpened"})
 				in
-				    #"Removed Duplicates key Columns"
+				    #"Reordered Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

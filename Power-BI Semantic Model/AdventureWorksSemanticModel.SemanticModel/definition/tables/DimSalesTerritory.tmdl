@@ -50,9 +50,10 @@ table DimSalesTerritory
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimSalesTerritory = Source{[Schema="dbo",Item="DimSalesTerritory"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimSalesTerritory,{"DimEmployee", "DimGeography", "FactInternetSales", "FactResellerSales", "SalesTerritoryImage"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimSalesTerritory,{"DimEmployee", "DimGeography", "FactInternetSales", "FactResellerSales", "SalesTerritoryImage"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Duplicates key Columns",{"SalesTerritoryKey", "SalesTerritoryAlternateKey", "SalesTerritoryGroup", "SalesTerritoryCountry", "SalesTerritoryRegion"})
 				in
-				    #"Removed Duplicates key Columns"
+				    #"Reordered Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

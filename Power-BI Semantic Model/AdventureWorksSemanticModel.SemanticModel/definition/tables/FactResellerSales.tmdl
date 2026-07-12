@@ -99,15 +99,6 @@ table FactResellerSales
 
 		annotation SummarizationSetBy = Automatic
 
-	column RevisionNumber
-		dataType: int64
-		formatString: 0
-		lineageTag: 1b8d006e-3c8e-4f91-bcc4-6b30fa0b55b5
-		summarizeBy: sum
-		sourceColumn: RevisionNumber
-
-		annotation SummarizationSetBy = Automatic
-
 	column OrderQuantity
 		dataType: int64
 		formatString: 0
@@ -214,22 +205,6 @@ table FactResellerSales
 
 		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
-	column CarrierTrackingNumber
-		dataType: string
-		lineageTag: 4318ba46-fe50-444c-9362-c8f2eab8cee9
-		summarizeBy: none
-		sourceColumn: CarrierTrackingNumber
-
-		annotation SummarizationSetBy = Automatic
-
-	column CustomerPONumber
-		dataType: string
-		lineageTag: 0b1daff7-ffd0-414e-a746-af18db1231f1
-		summarizeBy: none
-		sourceColumn: CustomerPONumber
-
-		annotation SummarizationSetBy = Automatic
-
 	partition FactResellerSales = m
 		mode: import
 		queryGroup: 'Fact Tables'
@@ -237,9 +212,11 @@ table FactResellerSales
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_FactResellerSales = Source{[Schema="dbo",Item="FactResellerSales"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.SelectColumns(dbo_FactResellerSales,{"ProductKey", "OrderDateKey", "DueDateKey", "ShipDateKey", "ResellerKey", "EmployeeKey", "PromotionKey", "CurrencyKey", "SalesTerritoryKey", "SalesOrderNumber", "SalesOrderLineNumber", "RevisionNumber", "OrderQuantity", "UnitPrice", "ExtendedAmount", "UnitPriceDiscountPct", "DiscountAmount", "ProductStandardCost", "TotalProductCost", "SalesAmount", "TaxAmt", "Freight", "CarrierTrackingNumber", "CustomerPONumber"})
+				    #"Removed Duplicates key Columns" = Table.SelectColumns(dbo_FactResellerSales,{"ProductKey", "OrderDateKey", "DueDateKey", "ShipDateKey", "ResellerKey", "EmployeeKey", "PromotionKey", "CurrencyKey", "SalesTerritoryKey", "SalesOrderNumber", "SalesOrderLineNumber", "RevisionNumber", "OrderQuantity", "UnitPrice", "ExtendedAmount", "UnitPriceDiscountPct", "DiscountAmount", "ProductStandardCost", "TotalProductCost", "SalesAmount", "TaxAmt", "Freight", "CarrierTrackingNumber", "CustomerPONumber"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Duplicates key Columns",{"ProductKey", "OrderDateKey", "DueDateKey", "ShipDateKey", "ResellerKey", "EmployeeKey", "PromotionKey", "CurrencyKey", "SalesTerritoryKey", "SalesOrderNumber", "SalesOrderLineNumber", "RevisionNumber", "CarrierTrackingNumber", "CustomerPONumber", "OrderQuantity", "UnitPrice", "ExtendedAmount", "UnitPriceDiscountPct", "DiscountAmount", "ProductStandardCost", "TotalProductCost", "SalesAmount", "TaxAmt", "Freight"}),
+				    #"Remove Unusefull columns for analysis" = Table.RemoveColumns(#"Reordered Columns",{"RevisionNumber", "CarrierTrackingNumber", "CustomerPONumber"})
 				in
-				    #"Removed Duplicates key Columns"
+				    #"Remove Unusefull columns for analysis"
 
 	annotation PBI_NavigationStepName = Navigation
 

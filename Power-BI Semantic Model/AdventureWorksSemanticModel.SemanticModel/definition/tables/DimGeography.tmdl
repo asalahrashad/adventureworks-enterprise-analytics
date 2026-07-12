@@ -90,9 +90,10 @@ table DimGeography
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimGeography = Source{[Schema="dbo",Item="DimGeography"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimGeography,{"DimCustomer", "DimReseller", "DimSalesTerritory", "IpAddressLocator"})
+				    #"Removed Duplicates key Columns" = Table.RemoveColumns(dbo_DimGeography,{"DimCustomer", "DimReseller", "DimSalesTerritory", "IpAddressLocator"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Duplicates key Columns",{"GeographyKey", "SalesTerritoryKey", "EnglishCountryRegionName", "CountryRegionCode", "City", "StateProvinceName", "StateProvinceCode", "PostalCode", "SpanishCountryRegionName", "FrenchCountryRegionName"})
 				in
-				    #"Removed Duplicates key Columns"
+				    #"Reordered Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 

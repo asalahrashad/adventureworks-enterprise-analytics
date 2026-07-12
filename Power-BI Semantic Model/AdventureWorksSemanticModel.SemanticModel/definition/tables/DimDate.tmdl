@@ -195,9 +195,10 @@ table DimDate
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
 				    dbo_DimDate = Source{[Schema="dbo",Item="DimDate"]}[Data],
-				    #"Removed Duplicates key Columns" = Table.SelectColumns(dbo_DimDate,{"DateKey", "FullDateAlternateKey", "DayNumberOfWeek", "EnglishDayNameOfWeek", "SpanishDayNameOfWeek", "FrenchDayNameOfWeek", "DayNumberOfMonth", "DayNumberOfYear", "WeekNumberOfYear", "EnglishMonthName", "SpanishMonthName", "FrenchMonthName", "MonthNumberOfYear", "CalendarQuarter", "CalendarYear", "CalendarSemester", "FiscalQuarter", "FiscalYear", "FiscalSemester"})
+				    #"Removed Duplicates key Columns" = Table.SelectColumns(dbo_DimDate,{"DateKey", "FullDateAlternateKey", "DayNumberOfWeek", "EnglishDayNameOfWeek", "SpanishDayNameOfWeek", "FrenchDayNameOfWeek", "DayNumberOfMonth", "DayNumberOfYear", "WeekNumberOfYear", "EnglishMonthName", "SpanishMonthName", "FrenchMonthName", "MonthNumberOfYear", "CalendarQuarter", "CalendarYear", "CalendarSemester", "FiscalQuarter", "FiscalYear", "FiscalSemester"}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Removed Duplicates key Columns",{"DateKey", "FullDateAlternateKey", "CalendarYear", "CalendarQuarter", "MonthNumberOfYear", "EnglishMonthName", "DayNumberOfWeek", "EnglishDayNameOfWeek", "SpanishDayNameOfWeek", "FrenchDayNameOfWeek", "DayNumberOfMonth", "DayNumberOfYear", "WeekNumberOfYear", "SpanishMonthName", "FrenchMonthName", "CalendarSemester", "FiscalQuarter", "FiscalYear", "FiscalSemester"})
 				in
-				    #"Removed Duplicates key Columns"
+				    #"Reordered Columns"
 
 	annotation PBI_NavigationStepName = Navigation
 
