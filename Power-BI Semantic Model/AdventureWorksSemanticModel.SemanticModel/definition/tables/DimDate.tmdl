@@ -37,6 +37,9 @@ table DimDate
 		lineageTag: a4bd100f-48fc-44cb-a9dc-d1bc63fb6410
 		summarizeBy: none
 		sourceColumn: EnglishDayNameOfWeek
+		sortByColumn: DayNumberOfWeek
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -88,6 +91,9 @@ table DimDate
 		lineageTag: a3611f1c-ab75-45df-8de1-30115dd62d6f
 		summarizeBy: none
 		sourceColumn: EnglishMonthName
+		sortByColumn: MonthNumberOfYear
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -167,6 +173,18 @@ table DimDate
 		lineageTag: ad1c3757-13b0-4d34-bd6e-f885ac9ccce3
 		summarizeBy: sum
 		sourceColumn: FiscalSemester
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name Abr' = ```
+			FORMAT(DimDate[FullDateAlternateKey], "MMM")
+			
+			```
+		lineageTag: b248ac55-0323-4376-8429-f491da2f51c8
+		summarizeBy: none
+		sortByColumn: MonthNumberOfYear
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
