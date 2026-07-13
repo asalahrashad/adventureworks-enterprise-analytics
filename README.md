@@ -3,6 +3,7 @@
 # AdventureWorks Enterprise Analytics
 
 ### Enterprise Business Intelligence Solution built with Power BI, DAX & SQL Server
+An enterprise-grade BI solution that delivers actionable insights for senior executive management. This project strictly follows modern data architecture by separating the **Centralized Semantic Model** from the **Reporting Layer** to ensure a single source of truth, high scalability, and optimized performance.
 
 ![Power BI](https://img.shields.io/badge/Power_BI-Enterprise-yellow?logo=powerbi)
 ![SQL Server](https://img.shields.io/badge/SQL_Server-AdventureWorks-red?logo=microsoftsqlserver)
@@ -65,7 +66,8 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 ---
 
-# Solution Architecture
+## 🗺️ Solution Architecture & Data Modeling
+The project is built on top of the Microsoft **AdventureWorksDW**. It implements a robust **Star Schema** centered around **Conformed Dimensions** to eliminate fact-to-fact ambiguity and deliver sub-second query performance.
 
 <p align="center">
 
@@ -82,6 +84,18 @@ The first delivered application is an **Executive Dashboard** designed for senio
 <img src="z_Images/Other System Components/Data Model.png" width="900">
 
 </p>
+
+### 📊 Enterprise Bus Matrix
+| Dimension Table | FactInternetSales (B2C) | FactResellerSales (B2B) | FactSalesQuota (Targets) | FactCurrencyRate (Rates) |
+| :--- | :---: | :---: | :---: | :---: |
+| **DimDate** | ✅ Conformed | ✅ Conformed | ✅ Conformed | ✅ Conformed |
+| **DimProduct** | ✅ Conformed | ✅ Conformed | ❌ N/A | ❌ N/A |
+| **DimSalesTerritory** | ✅ Conformed | ✅ Conformed | ❌ Indirect | ❌ N/A |
+| **DimEmployee** | ❌ N/A | ✅ Direct | ✅ Direct | ❌ N/A |
+| **DimCustomer** | ✅ Direct | ❌ N/A | ❌ N/A | ❌ N/A |
+| **DimReseller** | ❌ N/A | ✅ Direct | ❌ N/A | ❌ N/A |
+| **DimPromotion** | ✅ Direct | ✅ Direct | ❌ N/A | ❌ N/A |
+| **DimCurrency** | ✅ Conformed | ✅ Conformed | ❌ N/A | ✅ Conformed |
 
 ### Implemented Features
 
@@ -104,19 +118,10 @@ The first delivered application is an **Executive Dashboard** designed for senio
 | ---------------------------------------- |
 | <img src="z_Images/Dashboards/Executive Summary.png"> |
 
-### Main KPIs
-
-* Total Revenue
-* Gross Profit
-* Gross Margin %
-* Total Orders
-
-### Main Visuals
-
-* Revenue Trend
-* Revenue by Sales Channel
-* Revenue by Territory Group
-* Product Category Matrix
+A high-end, light-minimalist analytical application structured to answer critical business questions in under 5 minutes using a strict top-down layout design.
+* **Goal:** 30-second health check for C-Suite executives.
+* **KPIs:** Total Revenue, Gross Profit, Gross Margin %, Total Orders (All with YoY Growth contexts).
+* **Visuals:** Revenue & Profit Monthly Trend, Revenue Split (Internet vs Reseller), Regional Profitability Map, Product Category Growth Matrix.
 
 ---
 
@@ -126,12 +131,9 @@ The first delivered application is an **Executive Dashboard** designed for senio
 | ---------------------------------------- |
 | <img src="z_Images/Dashboards/Sales Performance.png"> |
 
-### Visuals
-
-* Orders Trend
-* Average Order Value Trend
-* Quantity by Product Category
-* Top Customers
+* **Goal:** Granular breakdown of sales channels, volumes, and customer behavior.
+* **KPIs:** Internet Sales, Reseller Sales, Average Order Value (AOV), Total Quantity.
+* **Visuals:** Revenue Split Donut (with smart tooltips), Top 10 Products by Channel, Regional Revenue Treemap.
 
 ---
 
@@ -139,14 +141,11 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 | Dashboard                            |
 | ------------------------------------ |
-| <img src="z_Images/Dashboards/profitability.png"> |
+| <img src="z_Images/Dashboards/Profitability.png"> |
 
-### Visuals
-
-* Gross Profit Trend
-* Gross Margin by Territory
-* Profit by Category
-* Cost Breakdown
+* **Goal:** Trace where money is spent and detect margin drops.
+* **KPIs:** Gross Profit, Gross Margin %, Total Cost, Freight & Tax Summary.
+* **Visuals:** Revenue-to-Profit Waterfall Bridge, Margin vs Cost Line Combo, Product Subcategory Profitability Matrix (Scatter).
 
 ---
 
@@ -154,15 +153,11 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 | Dashboard                                   |
 | ------------------------------------------- |
-| <img src="z_Images/Dashboards/business performance.png"> |
+| <img src="z_Images/Dashboards/Business Performance.png"> |
 
-### Visuals
-
-* Revenue vs Target
-* Territory Performance
-* Top Resellers
-* Revenue per Employee
-
+* **Goal:** Evaluate sales team efficiency against targets and track B2B performance.
+* **KPIs:** Quota Achievement %, Target Variance, Active Employees, Active Resellers.
+* **Visuals:** Actual Sales vs Quota Trend, Employee Target Achievement Ranking (Conditional Formatting), Promotion Contribution Funnel.
 ---
 
 # Business KPIs
@@ -179,14 +174,11 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 ---
 
-# Interactive Features
-
-* Dynamic KPI Cards
-* Interactive Cross Filtering
-* Report Page Tooltips
-* Global Sync Slicers
-* Time Intelligence
-* Pages Navigation
+## ⚡ Technical Highlights & Advanced DAX
+* **Centralized Semantic Model:** Built using Thin Reports connected to a single published dataset via Live Connection.
+* **Dynamic Currency Conversion:** Implemented dynamic translation utilizing `FactCurrencyRate` to handle local reseller pricing vs standard USD costs.
+* **Time Intelligence Framework:** Custom DAX logic for `YoY Growth %`, `YTD`, and `Prior Year` calculations without breaking cross-filtering.
+* **Strict Measure Organization:** Folder and Sub-folder structures managed via Tabular Editor for maximum scannability.
 
 ---
 
@@ -194,12 +186,12 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 | Technology       | Description                   |
 | ---------------- | ----------------------------- |
-| Power BI Desktop | Dashboard Development         |
-| SQL Server       | AdventureWorks Data Warehouse |
-| DAX              | Business Logic                |
-| Power Query      | Data Transformation           |
-| Git              | Version Control               |
-| GitHub           | Project Repository            |
+| **Power BI Desktop:**| Dashboard Development         |
+|**SQL Server / T-SQL:**| AdventureWorks Data Warehouse |
+| **DAX** | Business Logic                |
+| **Power Query**     | Data Transformation           |
+| **Git**              | Version Control               |
+| **GitHub**           | Project Repository            |
 
 ---
 
@@ -208,12 +200,12 @@ The first delivered application is an **Executive Dashboard** designed for senio
 ```text
 AdventureWorks-Enterprise-Analytics
 │
-├── Power-BI Semantic Model
-├── Project Presentation
-├── Reports
-├── docs
-├── z_Images
-└── README.md
+├── Power-BI Semantic Model    #For unified Data, Business Logic
+├── Project Presentation       #Showing Project Details And Flow
+├── Reports                    #The Final Product After All These Discussion 
+├── docs                       #Architecture details, Wireframes, and Bus Matrix
+├── z_Images                   #Dashboards, System Flow and Architecture
+└── README.md                  #Project Documentation
 ```
 
 ---
@@ -226,31 +218,10 @@ AdventureWorks-Enterprise-Analytics
 
 | Profitability                        | Business Performance                        |
 | ------------------------------------ | ------------------------------------------- |
-| <img src="z_Images/Dashboards/profitability.png"> | <img src="z_Images/Dashboards/business performance.png"> |
+| <img src="z_Images/Dashboards/Profitability.png"> | <img src="z_Images/Dashboards/Business Performance.png"> |
 
 ---
 
-# Project Highlights
-
-⭐ Enterprise Semantic Model
-
-⭐ Executive Dashboard
-
-⭐ Advanced DAX Calculations
-
-⭐ Dynamic Currency Conversion
-
-⭐ Time Intelligence
-
-⭐ Business KPI Framework
-
-⭐ Enterprise Measure Organization
-
-⭐ Interactive Tooltips
-
-⭐ Professional Dashboard Design
-
----
 
 # Author
 
