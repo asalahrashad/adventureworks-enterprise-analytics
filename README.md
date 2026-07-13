@@ -69,7 +69,7 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 <p align="center">
 
-<img src="images/architecture.png" width="900">
+<img src="z_Images/Other System Components/System Flow.png" width="900">
 
 </p>
 
@@ -79,19 +79,18 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 <p align="center">
 
-<img src="images/semantic-model.png" width="900">
+<img src="z_Images/Other System Components/Data Model.png" width="900">
 
 </p>
 
 ### Implemented Features
 
-* Enterprise Star Schema
+* Enterprise Galaxy Schema
 * Shared Dimensions
 * Centralized Business Logic
 * Reusable DAX Measures
 * Dynamic Currency Conversion
 * Time Intelligence
-* Executive KPI Framework
 * Enterprise Measure Organization
 * Optimized Relationships
 
@@ -103,7 +102,7 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 | Dashboard                                |
 | ---------------------------------------- |
-| <img src="images/executive-summary.png"> |
+| <img src="z_Images/Dashboards/Executive Summary.png"> |
 
 ### Main KPIs
 
@@ -111,10 +110,6 @@ The first delivered application is an **Executive Dashboard** designed for senio
 * Gross Profit
 * Gross Margin %
 * Total Orders
-* Best Employee
-* Best Territory
-* Best Product
-* Underperforming Market
 
 ### Main Visuals
 
@@ -129,7 +124,7 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 | Dashboard                                |
 | ---------------------------------------- |
-| <img src="images/sales-performance.png"> |
+| <img src="z_Images/Dashboards/Sales Performance.png"> |
 
 ### Visuals
 
@@ -144,7 +139,7 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 | Dashboard                            |
 | ------------------------------------ |
-| <img src="images/profitability.png"> |
+| <img src="z_Images/Dashboards/profitability.png"> |
 
 ### Visuals
 
@@ -159,7 +154,7 @@ The first delivered application is an **Executive Dashboard** designed for senio
 
 | Dashboard                                   |
 | ------------------------------------------- |
-| <img src="images/business-performance.png"> |
+| <img src="z_Images/Dashboards/business performance.png"> |
 
 ### Visuals
 
@@ -191,7 +186,7 @@ The first delivered application is an **Executive Dashboard** designed for senio
 * Report Page Tooltips
 * Global Sync Slicers
 * Time Intelligence
-* Executive Navigation
+* Pages Navigation
 
 ---
 
@@ -213,12 +208,12 @@ The first delivered application is an **Executive Dashboard** designed for senio
 ```text
 AdventureWorks-Enterprise-Analytics
 │
-├── README.md
-├── images
-├── powerbi
-├── dax
-├── sql
-└── docs
+├── Power-BI Semantic Model
+├── Project Presentation
+├── Reports
+├── docs
+├── z_Images
+└── README.md
 ```
 
 ---
@@ -227,11 +222,11 @@ AdventureWorks-Enterprise-Analytics
 
 | Executive Summary                        | Sales Performance                        |
 | ---------------------------------------- | ---------------------------------------- |
-| <img src="images/executive-summary.png"> | <img src="images/sales-performance.png"> |
+| <img src="z_Images/Dashboards/Executive Summary.png"> | <img src="z_Images/Dashboards/Sales Performance.png"> |
 
 | Profitability                        | Business Performance                        |
 | ------------------------------------ | ------------------------------------------- |
-| <img src="images/profitability.png"> | <img src="images/business-performance.png"> |
+| <img src="z_Images/Dashboards/profitability.png"> | <img src="z_Images/Dashboards/business performance.png"> |
 
 ---
 
@@ -261,7 +256,8 @@ AdventureWorks-Enterprise-Analytics
 
 ## Ahmed Salah
 
-**Business Intelligence Developer**
+**Business Intelligence Developer &
+  Data Enginner**
 
 Power BI • DAX • SQL Server • Data Modeling • Business Intelligence
 
