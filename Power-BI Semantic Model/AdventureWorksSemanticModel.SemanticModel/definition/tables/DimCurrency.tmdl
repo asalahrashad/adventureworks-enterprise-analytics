@@ -30,7 +30,7 @@ table DimCurrency
 
 	partition DimCurrency = m
 		mode: import
-		queryGroup: Currency
+		queryGroup: 'Dim Currency'
 		source =
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),

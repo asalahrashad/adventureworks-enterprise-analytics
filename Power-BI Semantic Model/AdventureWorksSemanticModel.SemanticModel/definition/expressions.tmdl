@@ -19,7 +19,7 @@ expression 'FactSalesQuota_Removed Duplicates key Columns_Counters_2026-06-25_17
 		    RemovedColumns
 		```
 	lineageTag: f9525dca-3ea3-48b0-bee8-285b1e704972
-	queryGroup: 'Diagnostic Data'
+	queryGroup: Support
 
 	annotation PBI_NavigationStepName = Navigation
 
@@ -38,7 +38,7 @@ expression 'FactSalesQuota_Removed Duplicates key Columns_Detailed_2026-06-25_17
 		    #"Changed Type"
 		```
 	lineageTag: fb4e2dc0-0ac7-4ba1-96db-96343bf7c069
-	queryGroup: 'Diagnostic Data'
+	queryGroup: Support
 
 	annotation PBI_NavigationStepName = Navigation
 
@@ -57,7 +57,7 @@ expression 'FactSalesQuota_Removed Duplicates key Columns_Aggregated_2026-06-25_
 		    #"Changed Type"
 		```
 	lineageTag: 1088321e-f7cc-41a5-aaf3-b65ed21a07da
-	queryGroup: 'Diagnostic Data'
+	queryGroup: Support
 
 	annotation PBI_NavigationStepName = Navigation
 

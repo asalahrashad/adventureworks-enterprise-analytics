@@ -55,7 +55,7 @@ table FactCurrencyRate
 
 	partition FactCurrencyRate = m
 		mode: import
-		queryGroup: Currency
+		queryGroup: 'Fact Tables'
 		source =
 				let
 				    Source = Sql.Database(".", "AdventureWorksDW2022"),
