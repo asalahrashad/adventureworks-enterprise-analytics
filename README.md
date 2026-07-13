@@ -1,274 +1,79 @@
-<div align="center">
+# 🚴‍♂️ AdventureWorks Enterprise Analytics
+> **Enterprise Business Intelligence Solution built with Power BI, DAX, & SQL Server.**
 
-# AdventureWorks Enterprise Analytics
-
-### Enterprise Business Intelligence Solution built with Power BI, DAX & SQL Server
-
-![Power BI](https://img.shields.io/badge/Power_BI-Enterprise-yellow?logo=powerbi)
-![SQL Server](https://img.shields.io/badge/SQL_Server-AdventureWorks-red?logo=microsoftsqlserver)
-![DAX](https://img.shields.io/badge/DAX-Advanced-blue)
-![Data Modeling](https://img.shields.io/badge/Data_Modeling-Star_Schema-success)
-![License](https://img.shields.io/badge/License-MIT-green)
+An enterprise-grade BI solution that delivers actionable insights for senior executive management. This project strictly follows modern data architecture by separating the **Centralized Semantic Model** from the **Reporting Layer** to ensure a single source of truth, high scalability, and optimized performance.
 
 ---
 
-<img src="images/cover.png" width="1000">
+## 🗺️ Solution Architecture & Data Modeling
+The project is built on top of the Microsoft **AdventureWorksDW**. It implements a robust **Star Schema** centered around **Conformed Dimensions** to eliminate fact-to-fact ambiguity and deliver sub-second query performance.
 
-**Enterprise Executive Dashboard built on top of a centralized Semantic Model using AdventureWorks Data Warehouse.**
-
-</div>
-
----
-
-# Table of Contents
-
-* [Project Overview](#project-overview)
-* [Business Objectives](#business-objectives)
-* [Solution Architecture](#solution-architecture)
-* [Enterprise Semantic Model](#enterprise-semantic-model)
-* [Executive Dashboard](#executive-dashboard)
-* [Business KPIs](#business-kpis)
-* [Interactive Features](#interactive-features)
-* [Technology Stack](#technology-stack)
-* [Repository Structure](#repository-structure)
-* [Dashboard Gallery](#dashboard-gallery)
-* [Project Highlights](#project-highlights)
-* [Author](#author)
+### 📊 Enterprise Bus Matrix
+| Dimension Table | FactInternetSales (B2C) | FactResellerSales (B2B) | FactSalesQuota (Targets) | FactCurrencyRate (Rates) |
+| :--- | :---: | :---: | :---: | :---: |
+| **DimDate** | ✅ Conformed | ✅ Conformed | ✅ Conformed | ✅ Conformed |
+| **DimProduct** | ✅ Conformed | ✅ Conformed | ❌ N/A | ❌ N/A |
+| **DimSalesTerritory** | ✅ Conformed | ✅ Conformed | ❌ Indirect | ❌ N/A |
+| **DimEmployee** | ❌ N/A | ✅ Direct | ✅ Direct | ❌ N/A |
+| **DimCustomer** | ✅ Direct | ❌ N/A | ❌ N/A | ❌ N/A |
+| **DimReseller** | ❌ N/A | ✅ Direct | ❌ N/A | ❌ N/A |
+| **DimPromotion** | ✅ Direct | ✅ Direct | ❌ N/A | ❌ N/A |
+| **DimCurrency** | ✅ Conformed | ✅ Conformed | ❌ N/A | ✅ Conformed |
 
 ---
 
-# Project Overview
+## 📱 App 1: Executive Overview Dashboard
+A high-end, light-minimalist analytical application structured to answer critical business questions in under 5 minutes using a strict top-down layout design.
 
-AdventureWorks Enterprise Analytics is a complete Business Intelligence solution developed using **Power BI**, **DAX**, and **SQL Server**.
+### 🏢 1. Executive Summary (The Horizon)
+* **Goal:** 30-second health check for C-Suite executives.
+* **KPIs:** Total Revenue, Gross Profit, Gross Margin %, Total Orders (All with YoY Growth contexts).
+* **Visuals:** Revenue & Profit Monthly Trend, Revenue Split (Internet vs Reseller), Regional Profitability Map, Product Category Growth Matrix.
 
-Unlike traditional Power BI reports, this project follows an enterprise architecture by separating the **Semantic Model** from the reporting layer, enabling centralized business logic, reusable measures, and scalable reporting.
+### 📈 2. Sales Performance (Deep Dive)
+* **Goal:** Granular breakdown of sales channels, volumes, and customer behavior.
+* **KPIs:** Internet Sales, Reseller Sales, Average Order Value (AOV), Total Quantity.
+* **Visuals:** Revenue Split Donut (with smart tooltips), Top 10 Products by Channel, Regional Revenue Treemap.
 
-The first delivered application is an **Executive Dashboard** designed for senior management to monitor company performance through high-level KPIs and interactive business visualizations.
+### 💸 3. Profitability Analysis (Financial Leakage)
+* **Goal:** Trace where money is spent and detect margin drops.
+* **KPIs:** Gross Profit, Gross Margin %, Total Cost, Freight & Tax Summary.
+* **Visuals:** Revenue-to-Profit Waterfall Bridge, Margin vs Cost Line Combo, Product Subcategory Profitability Matrix (Scatter).
 
----
+### 🎯 4. Business Performance & Quotas (Operations)
+* **Goal:** Evaluate sales team efficiency against targets and track B2B performance.
+* **KPIs:** Quota Achievement %, Target Variance, Active Employees, Active Resellers.
+* **Visuals:** Actual Sales vs Quota Trend, Employee Target Achievement Ranking (Conditional Formatting), Promotion Contribution Funnel.
 
-# Business Objectives
-
-✔ Monitor business performance
-
-✔ Track Revenue & Profitability
-
-✔ Analyze Territory Performance
-
-✔ Compare Sales Channels
-
-✔ Monitor Employee Performance
-
-✔ Evaluate Product Categories
-
-✔ Support Executive Decision Making
-
----
-
-# Solution Architecture
-
-<p align="center">
-
-<img src="images/architecture.png" width="900">
-
-</p>
+### 💡 5. Executive Insights (Actionable Data)
+* **Goal:** Instant highlighting of the business extremes (The Peaks and Troughs).
+* **KPIs:** Best Employee, Top Territory, Best Selling Product, Underperforming Market.
+* **Visuals:** Top 10 vs Bottom 10 Products, VIP Reseller Accounts, Lowest Performing Territories.
 
 ---
 
-# Enterprise Semantic Model
-
-<p align="center">
-
-<img src="images/semantic-model.png" width="900">
-
-</p>
-
-### Implemented Features
-
-* Enterprise Star Schema
-* Shared Dimensions
-* Centralized Business Logic
-* Reusable DAX Measures
-* Dynamic Currency Conversion
-* Time Intelligence
-* Executive KPI Framework
-* Enterprise Measure Organization
-* Optimized Relationships
+## ⚡ Technical Highlights & Advanced DAX
+* **Centralized Semantic Model:** Built using Thin Reports connected to a single published dataset via Live Connection.
+* **Dynamic Currency Conversion:** Implemented dynamic translation utilizing `FactCurrencyRate` to handle local reseller pricing vs standard USD costs.
+* **Time Intelligence Framework:** Custom DAX logic for `YoY Growth %`, `YTD`, and `Prior Year` calculations without breaking cross-filtering.
+* **Strict Measure Organization:** Folder and Sub-folder structures managed via Tabular Editor for maximum scannability.
 
 ---
 
-# Executive Dashboard
-
-## Executive Summary
-
-| Dashboard                                |
-| ---------------------------------------- |
-| <img src="images/executive-summary.png"> |
-
-### Main KPIs
-
-* Total Revenue
-* Gross Profit
-* Gross Margin %
-* Total Orders
-* Best Employee
-* Best Territory
-* Best Product
-* Underperforming Market
-
-### Main Visuals
-
-* Revenue Trend
-* Revenue by Sales Channel
-* Revenue by Territory Group
-* Product Category Matrix
+## 🛠️ Technology Stack
+* **SQL Server / T-SQL:** Data Warehouse hosting, schema exploration, and data validation.
+* **Power BI Desktop:** Semantic modeling, DAX engineering, and UX/UI dashboard development.
+* **Tabular Editor:** Advanced model scripting and measure organization.
+* **DAX Studio:** Query optimization and performance tuning of the VertiPaq engine.
 
 ---
 
-## Sales Performance
-
-| Dashboard                                |
-| ---------------------------------------- |
-| <img src="images/sales-performance.png"> |
-
-### Visuals
-
-* Orders Trend
-* Average Order Value Trend
-* Quantity by Product Category
-* Top Customers
-
----
-
-## Profitability
-
-| Dashboard                            |
-| ------------------------------------ |
-| <img src="images/profitability.png"> |
-
-### Visuals
-
-* Gross Profit Trend
-* Gross Margin by Territory
-* Profit by Category
-* Cost Breakdown
-
----
-
-## Business Performance
-
-| Dashboard                                   |
-| ------------------------------------------- |
-| <img src="images/business-performance.png"> |
-
-### Visuals
-
-* Revenue vs Target
-* Territory Performance
-* Top Resellers
-* Revenue per Employee
-
----
-
-# Business KPIs
-
-| Area          | KPIs                                     |
-| ------------- | ---------------------------------------- |
-| Revenue       | Revenue, AOV, ASP, Growth                |
-| Profitability | Gross Profit, Margin, Cost, Freight, Tax |
-| Orders        | Orders, Order Lines, Quantity            |
-| Customer      | New, Returning, Retention                |
-| Product       | Revenue, Profit, Margin, Product Mix     |
-| Employee      | Revenue, Target, Achievement             |
-| Territory     | Revenue, Profit, Growth                  |
-
----
-
-# Interactive Features
-
-* Dynamic KPI Cards
-* Interactive Cross Filtering
-* Report Page Tooltips
-* Global Sync Slicers
-* Time Intelligence
-* Executive Navigation
-
----
-
-# Technology Stack
-
-| Technology       | Description                   |
-| ---------------- | ----------------------------- |
-| Power BI Desktop | Dashboard Development         |
-| SQL Server       | AdventureWorks Data Warehouse |
-| DAX              | Business Logic                |
-| Power Query      | Data Transformation           |
-| Git              | Version Control               |
-| GitHub           | Project Repository            |
-
----
-
-# Repository Structure
-
+## 📂 Repository Structure
 ```text
 AdventureWorks-Enterprise-Analytics
 │
-├── README.md
-├── images
-├── powerbi
-├── dax
-├── sql
-└── docs
-```
-
----
-
-# Dashboard Gallery
-
-| Executive Summary                        | Sales Performance                        |
-| ---------------------------------------- | ---------------------------------------- |
-| <img src="images/executive-summary.png"> | <img src="images/sales-performance.png"> |
-
-| Profitability                        | Business Performance                        |
-| ------------------------------------ | ------------------------------------------- |
-| <img src="images/profitability.png"> | <img src="images/business-performance.png"> |
-
----
-
-# Project Highlights
-
-⭐ Enterprise Semantic Model
-
-⭐ Executive Dashboard
-
-⭐ Advanced DAX Calculations
-
-⭐ Dynamic Currency Conversion
-
-⭐ Time Intelligence
-
-⭐ Business KPI Framework
-
-⭐ Enterprise Measure Organization
-
-⭐ Interactive Tooltips
-
-⭐ Professional Dashboard Design
-
----
-
-# Author
-
-## Ahmed Salah
-
-**Business Intelligence Developer**
-
-Power BI • DAX • SQL Server • Data Modeling • Business Intelligence
-
----
-
-<div align="center">
-
-### ⭐ If you like this project, consider giving it a Star.
-
-</div>
+├── sql/               # T-SQL Scripts for DW analysis & validation
+├── dax/               # Centralized DAX Measures catalog (.txt/.dax)
+├── powerbi/           # Power BI Templates (.pbit) and Reports (.pbix)
+├── docs/              # Architecture details, Wireframes, and Bus Matrix
+└── README.md          # Project Documentation
