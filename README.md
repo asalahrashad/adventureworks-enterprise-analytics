@@ -12,7 +12,7 @@
 
 ---
 
-<img src="images/cover.png" width="1000">
+<img src="z_Images/Other System Components/System Architecture.png" width="1000">
 
 **Enterprise Executive Dashboard built on top of a centralized Semantic Model using AdventureWorks Data Warehouse.**
 
