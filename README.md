@@ -160,6 +160,19 @@ A high-end, light-minimalist analytical application structured to answer critica
 * **Visuals:** Actual Sales vs Quota Trend, Employee Target Achievement Ranking (Conditional Formatting), Promotion Contribution Funnel.
 ---
 
+# Rsellers Sales Performance 'Tableau'
+
+| Dashboard                                   |
+| ------------------------------------------- |
+| <img src="z_Images/Dashboards/Business Performance.png"> |
+
+* **Goal:** Monitor regional sales revenue and evaluate profitability trends to identify seasonal growth and margin drops.
+
+* **KPIs:** Total Revenue ($34M), Gross Profit (-$429K), Average Order Value (AOV), Average Selling Price (ASP), Units Sold, and Orders.
+
+* **Visuals:** KPI Cards with Sparkline Trends, Monthly Revenue vs Profit Bar Chart with Target-Average Line, and Dynamic Country-Level Slicers.
+
+
 # Business KPIs
 
 | Area          | KPIs                                     |
