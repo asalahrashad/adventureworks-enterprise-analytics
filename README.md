@@ -162,9 +162,11 @@ A high-end, light-minimalist analytical application structured to answer critica
 
 # Rsellers Sales Performance 'Tableau'
 
+## Current Year Sales Overview
+
 | Dashboard                                   |
 | ------------------------------------------- |
-| <img src="z_Images/Dashboards/Business Performance.png"> |
+| <img src="z_Images/Dashboards/Tableau _ Overview.png"> |
 
 * **Goal:** Monitor regional sales revenue and evaluate profitability trends to identify seasonal growth and margin drops.
 
